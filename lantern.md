@@ -1,6 +1,8 @@
 # 使用lantern
 * 安装
-        emerge -av net-proxy/lantern-bin
+```
+emerge -av net-proxy/lantern-bin
+```
 * 启动
         lantern -headless  //这样就不会弹出浏览器
     * 通过netstat -nlutp 可以看到lantern监听8787和16823端口，监听的地址是127.0.0.1
