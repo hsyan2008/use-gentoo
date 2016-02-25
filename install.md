@@ -188,7 +188,7 @@
         passwd
 * 安装一些必要的系统工具
 
-        emerge -av syslog-ng cronie mlocate dhcpcd
+        emerge -av syslog-ng cronie mlocate dhcpcd logrotate
         rc-update add syslog-ng default
         rc-update add cronie default
         rc-update add sshd default
