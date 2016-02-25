@@ -55,7 +55,7 @@
     去[gentoo官网](https://www.gentoo.org/downloads/)下载对应的stage3包
 
         tar xvjpf stage3-*.tar.bz2 --xattrs
-* 配置make.conf
+* 配置make.conf里的编译选项
     查看CPU类型
     
         cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c
@@ -64,9 +64,6 @@
         CFLAGS="-march=core2 -O2 -pipe"
         CXXFLAGS="${CFLAGS}"
         MAKEOPTS="-j3"          //cpu核数+1=3
-        LINGUAS="zh_CN en"      //安装软件包的时候，如果有中文语言包，就顺便装上
-        VIDEO_CARDS="intel i965"     //这是我台式机的配置，笔记本是radeon r600，参考[Xorg/Guide](https://wiki.gentoo.org/wiki/Xorg/Guide)
-        INPUT_DEVICES="evdev synaptics"     //synaptics是触摸板
 * 拷贝DNS信息
 
         cp -L /etc/resolv.conf /mnt/gentoo/etc/
@@ -94,24 +91,27 @@
         . /etc/profile
 * 查看new，这个环节比较重要，我这里没有影响  
     通过eselect news list和eselect news read 编号 查看news,以下都是news里的一些信息  
-    如果/和/usr在不同分区，必须使用initramfs
-    在package.use里加入下面这行，这样会自动安装32位类库，但会造成编译时间变长
-    */* abi_x86_32     #暂时不加，编译太漫长
+    如果/和/usr在不同分区，内核必须使用initramfs  
+    在package.use里加入下面这行，这样会自动安装32位类库，但会造成编译时间变长  
+    \*/\* abi_x86_32
+
+* 选择合适的profile
+
+    eselect profile list
+    eselect profile set 3 //desktop
+* 配置make.conf  
+        emerge --info | grep ^USE //查看当前的USE设置
+
+        LINGUAS="zh_CN en"      //安装软件包的时候，如果有中文语言包，就顺便装上
+        VIDEO_CARDS="intel i965"     //这是我台式机的配置，笔记本是radeon r600，参考[Xorg/Guide](https://wiki.gentoo.org/wiki/Xorg/Guide)
+        INPUT_DEVICES="evdev synaptics"     //synaptics是触摸板
+    USE="sse sse2 sse3 python pulseaudio git subversion gnome-keyring bash-completion vim-syntax tk"
 
 
+emerge -1v app-portage/cpuinfo2cpuflags
+执行cpuinfo2cpuflags-x86查看，把结果填入make.conf里USE下面
+CPU_FLAGS_X86="mmx mmxext sse sse2 sse3 sse4_1 ssse3"
 
-在make.conf里设置(USE后)
-CPU_FLAGS_X86="${USE}" //不能带-，比如-kde就会报错
-
-
-eselect profile list
-
-eselect profile set 3 (desktop那个)
-vim /etc/portage/make.confemerge --info | grep ^USE //查看当前的USE设置
-
-#USE="mmx mmxext sse sse2 sse3 dvd alsa cdr udev consolekit python pulseaudio git subversion gnome-keyring bash-completion vim-syntax tk"     //alsa是高级音频,cdr是刻录
-
-USE="sse sse2 sse3 python pulseaudio git subversion gnome-keyring bash-completion vim-syntax tk"     //alsa是高级音频,cdr是刻录
 
 
 echo "Asia/Shanghai" > /etc/timezone
