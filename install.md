@@ -7,7 +7,7 @@
 ping www.baidu.com，如果能ping通，直接下一步
 通过ifconfig查看网卡名字，这里是enp3s0
 然后执行
-```sh
+```bash
 ifconfig enp3s0 192.168.1.168 broadcast 192.168.1.255 netmask 255.255.255.0
 ip route add via 192.168.1.1 dev enp3s0
 ```
