@@ -1,5 +1,5 @@
 # 安装基本系统
-##强烈建议对照[官方文档](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation)
+##强烈建议对照[官方文档](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation)参考
 * 从[gentoo官网](https://gentoo.org/downloads/)下载iso，我这里下载的是amd64下的Minimal Installation CD
 * 光盘启动
 * 网络链接
@@ -97,114 +97,120 @@
 
 * 选择合适的profile
 
-    eselect profile list
-    eselect profile set 3 //desktop
-* 配置make.conf  
-        emerge --info | grep ^USE //查看当前的USE设置
+        eselect profile list
+        eselect profile set 3 //desktop
+* 配置make.conf
+    * 查看当前的USE设置
+        
+            emerge --info | grep ^USE
+    * 查看cpu支持的指令集
+    
+            emerge -1v app-portage/cpuinfo2cpuflags
+            cpuinfo2cpuflags        //记下执行结果，下一步用到
+    * 修改/etc/portage/make.conf，显卡配置参考[Xorg/Guide](https://wiki.gentoo.org/wiki/Xorg/Guide)
+    
+            LINGUAS="zh_CN en"      //安装软件包的时候，如果有中文语言包，就顺便装上
+            VIDEO_CARDS="intel i965"     //这是我台式机的配置，笔记本是radeon r600
+            INPUT_DEVICES="evdev synaptics"     //synaptics是触摸板
+            USE="sse sse2 sse3 python pulseaudio git subversion gnome-keyring bash-completion vim-syntax tk"
+            CPU_FLAGS_X86="mmx mmxext sse sse2 sse3 sse4_1 ssse3"   //上一步看到的指令集
 
-        LINGUAS="zh_CN en"      //安装软件包的时候，如果有中文语言包，就顺便装上
-        VIDEO_CARDS="intel i965"     //这是我台式机的配置，笔记本是radeon r600，参考[Xorg/Guide](https://wiki.gentoo.org/wiki/Xorg/Guide)
-        INPUT_DEVICES="evdev synaptics"     //synaptics是触摸板
-    USE="sse sse2 sse3 python pulseaudio git subversion gnome-keyring bash-completion vim-syntax tk"
+* 设置时区
+    
+        echo "Asia/Shanghai" > /etc/timezone
+        emerge --config sys-libs/timezone-data  //时间可能不对，查看下是否需要设置
+* 设置字符集  
+    * 在/etc/locale.gen里增加
 
+            en_US ISO-8859-1
+            en_US.UTF-8 UTF-8
+            zh_CN.UTF-8 UTF-8
+            zh_CN.GB2312 GB2312 
+            zh_CN.GBK GBK
+            zh_CN GB18030
+    * 更新
+        
+            locale-gen
+            eselect locale list
+            eselect locale set 10 //选择zh_CN.utf8
+            . /etc/profile
+    * 继续  
+        在/etc/env.d/02locale里增加
 
-emerge -1v app-portage/cpuinfo2cpuflags
-执行cpuinfo2cpuflags-x86查看，把结果填入make.conf里USE下面
-CPU_FLAGS_X86="mmx mmxext sse sse2 sse3 sse4_1 ssse3"
+            LC_COLLATE="C"
+            env-update && source /etc/profile
+* 分区挂载设置  
+    编辑/etc/fstab
+    
+        /dev/sda2     /boot        ext2     defaults,noatime     0 2
+        /dev/sda3     none           swap      sw                0 0
+        /dev/sda4     /            ext4     noatime              0 1
+        /dev/cdrom    /mnt/cdrom   auto     noauto,user          0 0
+* 安装内核
 
+        emerge -av gentoo-sources pciutils genkernel
+        cd /usr/src/linux
+    //配置参考[Installing_the_sources](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation#Installing_the_sources)  
+    //ipv6配置参考[IPv6_router_guide](https://wiki.gentoo.org/wiki/IPv6_router_guide/)  
+    照参考进行配置，CPU类型需要按照实际选择  
+    设置CONFIG_SND_HDA_PREALLOC_SIZE为2048 //HD-Audio Driver  
+    设置CONFIG_PPP_BSDCOMP     //ppp用到
+    
+        //emerge --ask radeon-ucode     //笔记本是AMD/ATI显卡，需要--->和下面冲突
+        emerge -av sys-kernel/linux-firmware   //这个是无线网卡的时候要装,参考https://wiki.gentoo.org/wiki/Wifi
+        genkernel --menuconfig all     //如果不设置，可以直接genkernel all
+* 网络设置，enp3s0是我的有线网卡名字
+    * 编辑/etc/conf.d/hostname
+    
+            hostname="主机名"
+    * 安装netifrc
 
+            emerge --noreplace netifrc
+    * 设置网络，编辑/etc/conf.d/net，修改如下
+        前三行是固定ip，第四行是动态ip，选择一个就可以了
 
-echo "Asia/Shanghai" > /etc/timezone
+            config_enp3s0="192.168.1.173 netmask 255.255.255.0 brd 192.168.1.255"
+            routes_enp3s0="default via 192.168.1.1"
+            dns_servers_enp3s0="114.114.114.114 223.5.5.5 192.168.1.1"     //指定dns
+            config_enp3s0="dhcp"
+        如果是多ip，第一行改成
 
-emerge --config sys-libs/timezone-data//时间可能不对，查看下是否需要设置
+            config_enp3s0="192.168.1.173 netmask 255.255.255.0 brd 192.168.1.255  
+            192.168.1.174 netmask 255.255.255.0 brd 192.168.1.255  
+            192.168.1.175 netmask 255.255.255.0 brd 192.168.1.255"
+    * 设置自启动
+    
+            cd /etc/init.d
+            ln -s net.lo net.eth0
+            rc-update add net.eth0 default
+* 设置新系统的root密码，一定要做，否则重启后无法登陆
 
-vim /etc/locale.gen增加
+        passwd
+* 安装一些必要的系统工具
 
-en_US ISO-8859-1
+        emerge -av syslog-ng cronie mlocate dhcpcd
+        rc-update add syslog-ng default
+        rc-update add cronie default
+        rc-update add sshd default
+        rc-update add dhcpcd default
+    这里普通用户用crontab -l报'/var/spool/cron/crontabs' is not a directory, bailing out.
+        
+        chmod o+rx /var/spool/cron
+* 安装引导，os-prober是多系统的时候有用
 
-en_US.UTF-8 UTF-8
-
-zh_CN.UTF-8 UTF-8 zh_CN.GB2312 GB2312 zh_CN.GBK GBKzh_CN GB18030
-
-
-locale-gen
-eselect locale list
-
-eselect locale set 10 （选择zh_CN.utf8）
-. /etc/profile
-
-vim /etc/env.d/02locale 增加
-
-LC_COLLATE="C"
-
-然后env-update && source /etc/profile
-安装
-
-emerge -av gentoo-sources pciutils genkernel
-
-手动安装内核请参考 http://www.gentoo.org/doc/en/handbook/handbook-amd64.xml?part=1&chap=7
-
-cd /usr/src/linux
-#编译内核，有两个方法，采用的是第二个方法，配置参考https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation#Installing_the_sources
-1、分步进行
-make menuconfig     //配置
-make && make modules_install
-make installgenkernel --install initramfs2、一次执行
-//一般配置参考https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation#Installing_the_sources
-需要先设置/etc/fstab
-emerge --ask radeon-ucode     //笔记本是AMD/ATI显卡，需要
-
-genkernel --menuconfig all     //没什么设置，可以直接genkernel all
-
-#make menuconfig //配置，也可以在genkernel里增加--menuconfig参数进行配置
-
-#genkernel all （--menuconfig要配置内核，--lvm使用LVM2，好像非常慢）
-
-挂载vim /etc/fstab
-
-/dev/sda2     /boot        ext2     defaults,noatime     0 2
-/dev/sda3     none           swap      sw                0 0
-/dev/sda4     /            ext4     noatime              0 1
-/dev/cdrom    /mnt/cdrom   auto     noauto,user          0 0
-
-vim /etc/conf.d/hostname
-
-emerge --noreplace netifrcvim /etc/conf.d/net   (可以配置多个网卡，参考手册)   修改如下(把eth0改成自己的网卡名，可以通过ifconfig查看,比如我的是enp4s0)
-//上三行是固定ip，第四行是动态ip，选择一个就可以了
-
-config_eth0="192.168.1.173 netmask 255.255.255.0 brd 192.168.1.255"
-routes_eth0="default via 192.168.1.1"
-dns_servers_enp4s0="114.114.114.114 223.5.5.5 192.168.1.1"     //指定dns
-config_eth0="dhcp"
-
-//如果是多ip，第一个改成
-
-config_eth0="192.168.1.173 netmask 255.255.255.0 brd 192.168.1.255
-
-192.168.1.174 netmask 255.255.255.0 brd 192.168.1.255
-
-192.168.1.175 netmask 255.255.255.0 brd 192.168.1.255"
-
-
-//设置自启动(把eth0改成自己的网卡名，可以通过ifconfig查看,比如我的是enp4s0)cd /etc/init.dln -s net.lo net.eth0rc-update add net.eth0 default
-
-passwd (修改root密码，一定要做，因为这里的修改跟开始的修改不是同个地方)
-
-
-emerge -av syslog-ng cronie mlocate dhcpcd#普通用户crontab -l报'/var/spool/cron/crontabs' is not a directory, bailing out.chmod o+rx /var/spool/cron
-
-rc-update add syslog-ng defaultrc-update add cronie defaultrc-update add sshd defaultrc-update add dhcpcd default
-
-
-emerge -av sys-boot/grub os-prober //os-prober是多系统的时候有用
-vim /etc/default/grub把超时时间改成3秒 // 可不做
-grub2-install /dev/sda (/dev/sda是启动分区所在)
-grub2-mkconfig -o /boot/grub/grub.cfg
-exit
-cd
-umount -l /mnt/gentoo/dev{/shm,/pts,}
-umount -l /mnt/gentoo{/boot,/proc,}
-shutdown -h now
+        emerge -av sys-boot/grub os-prober
+    grub的默认配置在/etc/default/grub，比如可以把超时时间改成3秒  
+    /dev/sda是启动分区所在
+    
+        grub2-install /dev/sda
+        grub2-mkconfig -o /boot/grub/grub.cfg
+* 安装完成，重启，建议在shutdown后才把光盘取出，否则可能会报io错误
+        
+        exit
+        cd
+        umount -l /mnt/gentoo/dev{/shm,/pts,}
+        umount -l /mnt/gentoo{/boot,/proc,}
+        shutdown -h now
 
 #参考
 [Gentoo Linux amd64 Handbook: Installing Gentoo](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation)
