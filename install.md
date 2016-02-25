@@ -1,22 +1,19 @@
 # 安装基本系统
 
-### 下载
 * 从[gentoo官网](https://gentoo.org/downloads/)下载iso，我这里下载的是amd64下的Minimal Installation CD
-* 光盘启动，
+* 光盘启动
 * 网络链接
-ping www.baidu.com，如果能ping通，直接下一步
-通过ifconfig查看网卡名字，这里是enp3s0
-然后执行
-```bash
-ifconfig enp3s0 192.168.1.168 broadcast 192.168.1.255 netmask 255.255.255.0
-ip route add via 192.168.1.1 dev enp3s0
-```
-vim /etc/resolv.conf
-nameserver 114.114.114.114
+        ping -c 1 www.baidu.com
+    如果能ping通，直接下一步，否则通过ifconfig查看网卡名字，这里是enp3s0，然后执行
+        ifconfig enp3s0 192.168.1.168 broadcast 192.168.1.255 netmask 255.255.255.0
+        ip route add via 192.168.1.1 dev enp3s0
+        echo "nameserver 114.114.114.114" > /etc/resolv.conf
 * 我这里为了安装方便，通过ssh安装
-* 启动sshd，
-设置root密码，
-然后远程连接
+    * 启动ssh服务
+            /etc/init.d/sshd start
+    * 修改root密码
+            passwd
+* 从其他电脑通过ssh连接过来
 
 #gpt分区
 
@@ -207,3 +204,6 @@ cd
 umount -l /mnt/gentoo/dev{/shm,/pts,}
 umount -l /mnt/gentoo{/boot,/proc,}
 shutdown -h now
+
+#参考
+[Gentoo Linux amd64 Handbook: Installing Gentoo](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation)
