@@ -213,4 +213,4 @@
         shutdown -h now
 
 #参考
-[Gentoo Linux amd64 Handbook: Installing Gentoo](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation)
+[Installing Gentoo](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation)
