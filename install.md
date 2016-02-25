@@ -1,5 +1,5 @@
 # 安装基本系统
-
+##强烈建议对照[官方文档](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation)
 * 从[gentoo官网](https://gentoo.org/downloads/)下载iso，我这里下载的是amd64下的Minimal Installation CD
 * 光盘启动
 * 网络链接
@@ -18,89 +18,86 @@
     
             passwd
 * 从其他电脑通过ssh连接过来
+* gpt分区（非UEFI主板，双斜杠后面的内容是说明，不要输入！）
 
-#gpt分区
+        parted -a optimal /dev/sda
+        (parted) mklabel gpt
+        (parted) print
+        (parted) rm 分区号码        //删除分区，如果不需要可以不做
+        (parted) unit mib
+        (parted) mkpart primary 1 3     //固定为2M的bios启动分区
+        (parted) name 1 grub
+        (parted) set 1 bios_grub on
+        (parted) mkpart primary 3 131       //boot分区
+        (parted) name 2 boot
+        (parted) mkpart primary 131 643     //交换分区
+        (parted) name 3 swap
+        (parted) mkpart primary 643 -1      //简单起见，剩下的全部在/分区，实际中可以把home、var等分区独立出来
+        (parted) name 4 rootfs
+        (parted) quit
+* 格式化分区
+        
+        mkfs.ext2 /dev/sda2
+        mkfs.ext4 /dev/sda4
+        mkswap /dev/sda3
+        swapon /dev/sda3
+* 挂载分区
 
-parted -a optimal /dev/sda
+        mount /dev/sda4 /mnt/gentoo
+        mkdir /mnt/gentoo/boot
+        mount /dev/sda2 /mnt/gentoo/boot
+* 修改时间，注意参数要替换成具体数字(Month, Day, hour, minute and Year)
 
-mklabel gptprint //输出rm 分区号码 //删除分区，如果不需要可以不做
+        date MMDDhhmmYYYY
+* 安装stage3
 
-unit mib
+        cd /mnt/gentoo
+    去[gentoo官网](https://www.gentoo.org/downloads/)下载对应的stage3包
 
-mkpart primary 1 3
+        tar xvjpf stage3-*.tar.bz2 --xattrs
+* 配置make.conf
+    查看CPU类型
+    
+        cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c
+    在/mnt/gentoo/etc/portage/make.conf里配置
 
-name 1 grub
+        CFLAGS="-march=core2 -O2 -pipe"
+        CXXFLAGS="${CFLAGS}"
+        MAKEOPTS="-j3"          //cpu核数+1=3
+        LINGUAS="zh_CN en"      //安装软件包的时候，如果有中文语言包，就顺便装上
+        VIDEO_CARDS="intel i965"     //这是我台式机的配置，笔记本是radeon r600，参考[Xorg/Guide](https://wiki.gentoo.org/wiki/Xorg/Guide)
+        INPUT_DEVICES="evdev synaptics"     //synaptics是触摸板
+* 拷贝DNS信息
 
-set 1 bios_grub on
+        cp -L /etc/resolv.conf /mnt/gentoo/etc/
+* chroot(注意，不装systemd)
+        
+        mount -t proc proc /mnt/gentoo/proc
+        mount --rbind /sys /mnt/gentoo/sys
+        mount --rbind /dev /mnt/gentoo/dev
+        chroot /mnt/gentoo /bin/bash
+        source /etc/profile
+        export PS1="(chroot) $PS1"
+* 安装portage最新快照
+        
+        emerge-webrsync
+* 更新portage关系树
+    
+        emerge --sync
+* 我习惯用vim
 
-mkpart primary 3 131
+        emerge -av vim
+        eselect vi list
+        eselect vi set 1
+        eselect editor list
+        eselect editor set 4
+        . /etc/profile
+* 查看new，这个环节比较重要，我这里没有影响  
+    通过eselect news list和eselect news read 编号 查看news,以下都是news里的一些信息  
+    如果/和/usr在不同分区，必须使用initramfs
+    在package.use里加入下面这行，这样会自动安装32位类库，但会造成编译时间变长
+    */* abi_x86_32     #暂时不加，编译太漫长
 
-name 2 boot
-
-mkpart primary 131 643
-
-name 3 swap
-
-mkpart primary 643 -1
-
-name 4 rootfsset 2 boot on  (UEFI主板才需要)quit
-
-
-格式化
-mkfs.ext2 /dev/sda2
-mkfs.ext4 /dev/sda4
-mkswap /dev/sda3
-swapon /dev/sda3
-
-挂载
-
-mount /dev/sda4 /mnt/gentoo
-
-mkdir /mnt/gentoo/boot
-
-mount /dev/sda2 /mnt/gentoo/boot如果/tmp或/var/tmp是独立分区，则在挂载后执行chmod 1777 /mnt/gentoo/tmp
-date MMDDhhmmYYYY (Month, Day, hour, minute and Year)
-
-cd /mnt/gentoo下载对应的stage3包
-
-tar xvjpf stage3-*.tar.bz2 --xattrs
-
-查看CPU类型cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -cnano -w /mnt/gentoo/etc/portage/make.conf里
-
-CFLAGS添加-march=native
-
-MAKEOPTS="-j3"
-
-LINGUAS="zh_CN en"
-
-VIDEO_CARDS="intel i965"     //笔记本是radeon r600，参考https://wiki.gentoo.org/wiki/Xorg/Guide
-
-INPUT_DEVICES="evdev synaptics"     //触摸板
-
-
-cp -L /etc/resolv.conf /mnt/gentoo/etc/#--make-rslave在等下安装systemd支持的时候需要mount -t proc proc /mnt/gentoo/procmount --rbind /sys /mnt/gentoo/sys#mount --make-rslave /mnt/gentoo/sysmount --rbind /dev /mnt/gentoo/dev#mount --make-rslave /mnt/gentoo/dev
-
-chroot /mnt/gentoo /bin/bash
-
-source /etc/profile
-
-export PS1="(chroot) $PS1"
-
-emerge-webrsync
-
-emerge --sync [--quiet]
-
-emerge -av vim
-eselect vi list
-eselect editor list
-. /etc/profile
-
-//通过eselect news list查看news,以下都是news里的
-如果/和/usr在不同分区，必须使用initramfs
-在package.use里加入下面这行，这样会自动安装32位类库
-*/* abi_x86_32     #暂时不加，编译太漫长
-在make.conf里加入
-PYTHON_TARGETS="python2_7 python3_4"     #emerge --info | grep ^USE可以看到默认已有
 
 
 在make.conf里设置(USE后)
