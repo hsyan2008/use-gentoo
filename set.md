@@ -175,6 +175,7 @@
         emerge -av wpa_supplicant     //不要加入自动运行，因为dhcpd会自动读取配置来启动的
 
     编辑/etc/wpa_supplicant/wpa_supplicant.conf，输入
+    
         # Allow users in the 'wheel' group to control wpa_supplicant
         ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=wheel
         #自动扫描无线
@@ -193,12 +194,15 @@
                 priority=5      #优先级
         }
     在/etc/conf.d/net里增加(有线的配置还留着，会出现两个网卡同时联网的情况)
+    
         modules_wlp3s0="wpa_supplicant"
         config_wlp3s0="dhcp"
 
     然后可以执行下面的命令查看是否成功启动，以及log
+    
         wpa_supplicant -Dnl80211 -iwlp3s0 -C/var/run/wpa_supplicant/ -c/etc/wpa_supplicant/wpa_supplicant.conf -dd
     然后执行
+    
         ln -s /etc/init.d/net.lo /etc/init.d/net.wlp3s0
         /etc/init.d/net.wlp3s0 restart     //这样就算无线重启，也会自动连接
         rc-update add net.wlp3s0 default
