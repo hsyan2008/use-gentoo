@@ -53,6 +53,7 @@
         emerge -av wqy-bitmapfont wqy-microhei wqy-unibit wqy-zenhei    //文泉驿字体
         eselect fontconfig list     //字体列表
         eselect fontconfig set      //字体设置
+        emerge -av media-fonts/inconsolata      //推荐字体，建议设置成大小14
         
 * 安装常用软件
         
