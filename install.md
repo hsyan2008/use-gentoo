@@ -117,7 +117,7 @@
             LINGUAS="zh_CN en"      //安装软件包的时候，如果有中文语言包，就顺便装上
             VIDEO_CARDS="intel i965"     //这是我台式机的配置，笔记本是radeon r600
             INPUT_DEVICES="evdev synaptics"     //synaptics是触摸板
-            USE="sse sse2 sse3 python pulseaudio git subversion gnome-keyring bash-completion vim-syntax tk"
+            USE="python pulseaudio git subversion gnome-keyring bash-completion vim-syntax tk"
             CPU_FLAGS_X86="mmx mmxext sse sse2 sse3 sse4_1 ssse3"   //上一步看到的指令集
 
 * 设置时区
@@ -153,7 +153,7 @@
         /dev/cdrom    /mnt/cdrom   auto     noauto,user          0 0
 * 安装内核
 
-        emerge -av gentoo-sources pciutils genkernel
+        emerge -av gentoo-sources pciutils genkernel iproute2
         cd /usr/src/linux
     //配置参考[Installing_the_sources](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation#Installing_the_sources)  
     //ipv6配置参考[IPv6_router_guide](https://wiki.gentoo.org/wiki/IPv6_router_guide/)  
