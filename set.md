@@ -237,6 +237,11 @@
         * 在~/.xinitrc最后增加，特别强调，任何时候，一定要保持下面这个内容在最后
                 
                 exec ck-launch-session dbus-launch --sh-syntax --exit-with-session awesome
+* 更新系统
+	
+	emaint sync -a
+	emerge -av --update --newuse --deep --with-bdeps=y @world
+
 * 大功告成，重启
     
         shutdown -r now
