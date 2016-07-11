@@ -72,7 +72,7 @@
 * 安装常用软件
         
         #emerge -av logrotate    //日志自动切分
-        emerge -av gnome-extra/sushi     //支持nautilus预览
+        #emerge -av gnome-extra/sushi     //支持nautilus预览
         emerge -av sys-apps/usb_modeswitch     //自动挂载
         emerge -av dev-vcs/git subversion mercurial bzr      //版本管理
         emerge -av guake tilda    //下拉式终端，支持透明，选择一个即可
