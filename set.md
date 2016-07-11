@@ -94,6 +94,7 @@
         emerge -av cdrtools     //命令行刻录工具
         #emerge -av evince  //pdf阅读，安装nautilus自动装上
         emerge -av app-office/libreoffice 
+        emerge -av tmux
 
 * 设置
     * 用户组设置和权限设置
