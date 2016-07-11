@@ -71,7 +71,7 @@
         
 * 安装常用软件
         
-        emerge -av logrotate    //日志自动切分
+        #emerge -av logrotate    //日志自动切分
         emerge -av gnome-extra/sushi     //支持nautilus预览
         emerge -av sys-apps/usb_modeswitch     //自动挂载
         emerge -av dev-vcs/git subversion mercurial bzr      //版本管理
@@ -92,7 +92,7 @@
         emerge -av netkit-telnetd     //telnet
         emerge -av file-roller     //压缩包管理
         emerge -av cdrtools     //命令行刻录工具
-        emerge -av acroread  //pdf阅读，这个会要求安装大量的32位库
+        emerge -av evince  //pdf阅读
         emerge -av app-office/libreoffice 
 
 * 设置
