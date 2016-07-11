@@ -61,9 +61,14 @@
         cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c
     在/mnt/gentoo/etc/portage/make.conf里配置
 
-        CFLAGS="-march=core2 -O2 -pipe"
+        #CFLAGS="-march=core2 -O2 -pipe"
+        CFLAGS="-march=native -O2 -pipe"
         CXXFLAGS="${CFLAGS}"
         MAKEOPTS="-j3"          //cpu核数+1=3
+* 配置源
+
+        mkdir /mnt/gentoo/etc/portage/repos.conf
+	cp /mnt/gentoo/usr/share/portage/config/repos.conf /mnt/gentoo/etc/portage/repos.conf/gentoo.conf
 * 拷贝DNS信息
 
         cp -L /etc/resolv.conf /mnt/gentoo/etc/
