@@ -5,6 +5,10 @@
         useradd -m -G users,wheel,audio,lp,video,usb,cdrom -s /bin/bash saxon
         rm /stage3-*.tar.bz2*
 * 配置bash
+    拷贝默认配置
+    	
+	cp /etc/skel/.bash* ~/
+	cp -r /etc/skel/.ssh ~/
     编辑~/.bashrc,增加
         
         alias ll='ls --color=auto -l'
@@ -17,6 +21,7 @@
 
         mkdir -p /etc/portage/repos.conf
         cp /usr/share/portage/config/repos.conf /etc/portage/repos.conf/gentoo.conf
+
 * 设置编译缓存
 
         emerge -av dev-util/ccache
@@ -39,6 +44,15 @@
         emerge -av eix sudo
         emerge -av xorg-server      //x服务端，没有这个就没有图形界面
         emerge -av media-libs/libtxc_dxtn   //为mesa开启完整的S3TC支持
+
+* 安装第三方源
+
+	emerge -av app-portage/layman //安装仓库管理工具,类似管理archlinux的core、extra、aur等
+	echo "source /var/lib/layman/make.conf" >> /etc/portage/make.conf
+	layman -L     //列出所有第三方源
+	layman -a gentoo-zh //增加源，如果前面是红色星星，表示没有装git，其他也类似，可以为layman添加use
+	layman -S     //更新
+	eix-update
 
 * 浏览器
 
