@@ -30,6 +30,7 @@
         (parted) set 1 bios_grub on
         (parted) mkpart primary 3 131       //boot分区
         (parted) name 2 boot
+        (parted) set 2 boot on	//UEFI
         (parted) mkpart primary 131 643     //交换分区
         (parted) name 3 swap
         (parted) mkpart primary 643 -1      //简单起见，剩下的全部在/分区，实际中可以把home、var等分区独立出来
@@ -37,7 +38,7 @@
         (parted) quit
 * 格式化分区
         
-        mkfs.ext2 /dev/sda2
+        mkfs.ext2 /dev/sda2 //UEFI是mkfs.vfat /dev/sda2
         mkfs.ext4 /dev/sda4
         mkswap /dev/sda3
         swapon /dev/sda3
@@ -69,6 +70,7 @@
 
         mkdir /mnt/gentoo/etc/portage/repos.conf
 	cp /mnt/gentoo/usr/share/portage/config/repos.conf /mnt/gentoo/etc/portage/repos.conf/gentoo.conf
+
 * 拷贝DNS信息
 
         cp -L /etc/resolv.conf /mnt/gentoo/etc/
@@ -86,14 +88,6 @@
 * 更新portage关系树
     
         emerge --sync
-* 我习惯用vim
-
-        emerge -av vim
-        eselect vi list
-        eselect vi set 1
-        eselect editor list
-        eselect editor set 4
-        . /etc/profile
 * 查看new，这个环节比较重要，我这里没有影响  
     通过eselect news list和eselect news read 编号 查看news,以下都是news里的一些信息  
     如果/和/usr在不同分区，内核必须使用initramfs  
@@ -104,6 +98,17 @@
 
         eselect profile list
         eselect profile set 3 //desktop
+* 更新@world
+
+        emerge --ask --update --deep --newuse @world
+* 我习惯用vim
+
+        emerge -av vim
+        eselect vi list
+        eselect vi set 1
+        eselect editor list
+        eselect editor set 4
+        . /etc/profile
 * 配置make.conf
     * 查看当前的USE设置
         
@@ -143,7 +148,7 @@
         在/etc/env.d/02locale里增加
 
             LC_COLLATE="C"
-            env-update && source /etc/profile
+	    env-update && source /etc/profile && export PS1="(chroot) $PS1"
 * 分区挂载设置  
     编辑/etc/fstab
     
@@ -153,9 +158,10 @@
         /dev/cdrom    /mnt/cdrom   auto     noauto,user          0 0
 * 安装内核
 
-        emerge -av gentoo-sources pciutils genkernel iproute2
+        emerge -av gentoo-sources pciutils genkernel mcelog //iproute2已安装
         cd /usr/src/linux
     //配置参考[Installing_the_sources](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation#Installing_the_sources)  
+    //配置参考[Gentoo_Kernel_Configuration_Guide](https://wiki.gentoo.org/wiki/Kernel/Gentoo_Kernel_Configuration_Guide)  
     //ipv6配置参考[IPv6_router_guide](https://wiki.gentoo.org/wiki/IPv6_router_guide/)  
     照参考进行配置，CPU类型需要按照实际选择  
     设置CONFIG_SND_HDA_PREALLOC_SIZE为2048 //HD-Audio Driver  
@@ -168,6 +174,7 @@
     * 编辑/etc/conf.d/hostname
     
             hostname="主机名"
+    * 编辑/etc/hosts，增加主机名到127.0.0.1后面
     * 安装netifrc
 
             emerge --noreplace netifrc
@@ -193,7 +200,7 @@
         passwd
 * 安装一些必要的系统工具
 
-        emerge -av syslog-ng cronie mlocate dhcpcd logrotate
+        emerge -av syslog-ng cronie mlocate dhcpcd logrotate ppp
         rc-update add syslog-ng default
         rc-update add cronie default
         rc-update add sshd default
@@ -203,11 +210,18 @@
         chmod o+rx /var/spool/cron
 * 安装引导，os-prober是多系统的时候有用
 
+	如果是UEFI，先执行
+	echo GRUB_PLATFORMS="efi-64" >> /etc/portage/make.conf
+
         emerge -av sys-boot/grub os-prober
     grub的默认配置在/etc/default/grub，比如可以把超时时间改成3秒  
     /dev/sda是启动分区所在
     
+    	如果是BIOS
         grub2-install /dev/sda
+	如果是UEFI
+	grub2-install --target=x86_64-efi --efi-directory=/boot
+
         grub2-mkconfig -o /boot/grub/grub.cfg
 * 安装完成，重启，建议在shutdown后才把光盘取出，否则可能会报io错误
         
