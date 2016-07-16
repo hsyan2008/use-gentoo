@@ -67,7 +67,7 @@
 
         emerge -av wqy-bitmapfont wqy-microhei wqy-unibit wqy-zenhei    //文泉驿字体
         eselect fontconfig list     //字体列表
-        eselect fontconfig set      //字体设置
+        eselect fontconfig enable      //字体设置
         emerge -av media-fonts/inconsolata      //推荐字体，建议设置成大小14
         
 * 安装常用软件
@@ -78,6 +78,7 @@
         emerge -av dev-vcs/git subversion mercurial bzr      //版本管理
         emerge -av guake tilda    //下拉式终端，支持透明，选择一个即可
         emerge -av terminator       //分屏式终端
+        emerge -av xrandr arandr 	//分辨率和屏幕设置
         emerge -av dmenu    //快速启动器，支持模糊搜索
         emerge -av gnome-icon-theme xcursor-themes     //系统图标和鼠标主题
         emerge -av slock scrot aria2 numlockx      //分别是锁屏、截图、下载、小键盘
