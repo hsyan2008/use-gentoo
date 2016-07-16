@@ -43,7 +43,7 @@
 
         emerge -av eix sudo
         emerge -av x11-base/xorg-drivers	//显卡驱动
-        emerge -av xorg-server      //x服务端，没有这个就没有图形界面
+        //emerge -av xorg-server      //x服务端，没有这个就没有图形界面
         emerge -av media-libs/libtxc_dxtn   //为mesa开启完整的S3TC支持
 
 * 安装第三方源
