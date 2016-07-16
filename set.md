@@ -151,9 +151,9 @@
             export QT_IM_MODULE=fcitx
             export XIM_PROGRAM=fcitx
 
-            fcitx &
-            guake &
-            compton --config ~/.compton.sample.conf &
+	    fcitx >/dev/null 2>&1 &
+	    guake >/dev/null 2>&1 &
+	    compton --config ~/.compton.sample.conf >/dev/null 2>&1 &
 * 声音
 
         emerge -av alsa-utils
