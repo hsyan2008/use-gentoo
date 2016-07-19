@@ -92,11 +92,12 @@
         emerge -av gentoolkit //gentoo的管理脚本，如equery
         emerge -av bind-tools     //dig、nslookup、host、nsupdate等工具
         emerge -av netkit-telnetd     //telnet
-        emerge -av file-roller     //压缩包管理
+        emerge -av file-roller rar     //压缩包管理
         emerge -av cdrtools     //命令行刻录工具
         #emerge -av evince  //pdf阅读，安装nautilus自动装上
         emerge -av app-office/libreoffice 
         emerge -av tmux
+        emerge -av sublime-text
 
 * 设置
     * 用户组设置和权限设置
