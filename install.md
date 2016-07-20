@@ -120,7 +120,7 @@
     * 修改/etc/portage/make.conf，显卡配置参考[Xorg/Guide](https://wiki.gentoo.org/wiki/Xorg/Guide)
     
             LINGUAS="zh_CN en"      //安装软件包的时候，如果有中文语言包，就顺便装上
-            L10N="zh-CN"            //安装thunderbird的时候，安装中文包
+            L10N="zh-CN"            //安装thunderbird、libreoffice-l10n的时候，安装中文包
             VIDEO_CARDS="intel i965"     //这是我台式机的配置，笔记本是radeon r600
             INPUT_DEVICES="evdev synaptics"     //synaptics是触摸板
             USE="python pulseaudio git subversion gnome-keyring bash-completion vim-syntax tk"
