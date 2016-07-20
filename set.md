@@ -98,6 +98,8 @@
         emerge -av app-office/libreoffice 
         emerge -av tmux
         emerge -av sublime-text
+        emerge -av wireshark    //网络嗅探
+        emerge -av genlop   //统计各个软件的安装耗时，如genlop -t firefox
 
 * 设置
     * 用户组设置和权限设置

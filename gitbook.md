@@ -7,6 +7,7 @@
         npm install gitbook-cli -g
 3、查看gitbook版本
 
+        gitbook ls
         gitbook versions
 4、安装最新版  
     说明：npm里还有个gitbook，运行的时候会提示安装gitbook-cli，这两者都会创建gitbook命令，所以会相互覆盖，而使用本文这种方式安装，通过gitbook-cli管理gitbook了
