@@ -18,18 +18,20 @@
 * 配置php
     * nginx的配置
     在/etc/nginx/nginx.conf里的http段里增加
-        autoindex on;//自动显示目录
-        autoindex_exact_size off;//人性化方式显示文件大小否则以byte显示
-        autoindex_localtime on;//按服务器时间显示，否则以gmt时间显示
+
+          autoindex on;//自动显示目录
+          autoindex_exact_size off;//人性化方式显示文件大小否则以byte显示
+          autoindex_localtime on;//按服务器时间显示，否则以gmt时间显示
 
     * 关于php的配置
-    参考https://wiki.gentoo.org/wiki/PHP
+    参考[PHP](https://wiki.gentoo.org/wiki/PHP)
     在/etc/nginx/nginx.conf的server里的root后面增加
+    
                 location ~ .php$ {
                         fastcgi_pass 127.0.0.1:9000;
                         include fastcgi.conf;
                 }
-    或者参考https://wiki.gentoo.org/wiki/Nginx
+    或者参考[Nginx](https://wiki.gentoo.org/wiki/Nginx)
 * 启动
 
         /etc/init.d/nginx restart
