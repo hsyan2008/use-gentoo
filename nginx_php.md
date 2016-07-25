@@ -2,16 +2,16 @@
 * 配置  
     在/etc/portage/make.conf里增加
 
-      PHP_TARGETS="php5-6"
+        PHP_TARGETS="php5-6"
     在/etc/portage/package.use里增加
 
-      dev-lang/php  curl fpm gd mysql mysqli pdo postgres pcntl sockets sqlite
+        dev-lang/php  curl fpm gd mysql mysqli pdo postgres pcntl sockets sqlite
     如果nginx默认不装fastcgi，也要加上
 
-      www-servers/nginx NGINX_MODULES_HTTP: fastcgi
+        www-servers/nginx NGINX_MODULES_HTTP: fastcgi
     或者在make.conf里增加
-    
-      NGINX_MODULES_HTTP="fastcgi"
+
+        NGINX_MODULES_HTTP="fastcgi"
 * 安装
 
         emerge -av nginx php
