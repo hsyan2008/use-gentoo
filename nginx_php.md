@@ -1,5 +1,6 @@
 # 安装nginx+php
 * 配置  
+
     在/etc/portage/make.conf里增加
       PHP_TARGETS="php5-6"
     在/etc/portage/package.use里增加
