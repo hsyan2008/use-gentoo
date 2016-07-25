@@ -6,11 +6,11 @@
         rm /stage3-*.tar.bz2*
 * 配置bash
     拷贝默认配置
-    	
-	cp /etc/skel/.bash* ~/
-	cp -r /etc/skel/.ssh ~/
+
+      cp /etc/skel/.bash* ~/
+      cp -r /etc/skel/.ssh ~/
     编辑~/.bashrc,增加
-        
+
         alias ll='ls --color=auto -l'
         HISTCONTROL=ignoredups      //连续名字不重复出现，和下一条冲突，选择一个即可
         HISTCONTROL=erasedups       //所有的重复只出现一次，和上一条冲突，选择一个即可
@@ -34,7 +34,7 @@
 
         PATH="/usr/lib/ccache/bin:/opt/bin:${PATH}"
     ccache的常用命令如下
-    
+
         ccache -s       //查看状态
         ccache -C       //清理缓存
 
@@ -48,18 +48,18 @@
 
 * 安装第三方源
 
-	emerge -av app-portage/layman //安装仓库管理工具,类似管理archlinux的core、extra、aur等
-	echo "source /var/lib/layman/make.conf" >> /etc/portage/make.conf
-	layman -L     //列出所有第三方源
-	layman -a gentoo-zh //增加源，如果前面是红色星星，表示没有装git，其他也类似，可以为layman添加use
-	layman -S     //更新
-	eix-update
+      emerge -av app-portage/layman //安装仓库管理工具,类似管理archlinux的core、extra、aur等
+	    echo "source /var/lib/layman/make.conf" >> /etc/portage/make.conf
+    	layman -L     //列出所有第三方源
+    	layman -a gentoo-zh //增加源，如果前面是红色星星，表示没有装git，其他也类似，可以为layman添加use
+    	layman -S     //更新
+    	eix-update
 
 * 浏览器
 
         emerge -av firefox chromium chrome-binary-plugins
     在/usr/local/bin里增加个脚本chrome，内容如下
-    
+
         #/bin/bash
         chromium-browser -enable-easy-off-store-extension-install -disable-application-cache -disk-cache-dir=/dev/shm/chromium -media-cache-dir=/dev/shm/chromium -disk-cache-size=104857600 -media-cache-size=104857600 &
     以后就可以执行chrome来启动，这样可以把缓存写到内存，而不是硬盘，提高性能
@@ -69,9 +69,9 @@
         eselect fontconfig list     //字体列表
         eselect fontconfig enable      //字体设置
         emerge -av media-fonts/inconsolata      //推荐字体，建议设置成大小14
-        
+
 * 安装常用软件
-        
+
         #emerge -av logrotate    //日志自动切分
         #emerge -av gnome-extra/sushi     //支持nautilus预览，安装nautilus自动装上
         emerge -av sys-apps/usb_modeswitch     //自动挂载
@@ -95,7 +95,7 @@
         emerge -av file-roller rar     //压缩包管理
         emerge -av cdrtools     //命令行刻录工具
         #emerge -av evince  //pdf阅读，安装nautilus自动装上
-        emerge -av app-office/libreoffice 
+        emerge -av app-office/libreoffice
         emerge -av tmux
         emerge -av sublime-text
         emerge -av wireshark    //网络嗅探
@@ -106,29 +106,29 @@
 
             gpasswd -a saxon plugdev     //USB
             gpasswd -a saxon uucp          //蓝牙、ppp、rfcomm
-            
+
             chown root:mail /var/spool/mail/
             chmod 03775 /var/spool/mail/
     * 自动完成    
         为root开启自动完成
-        
+
             eselect bashcomp list | grep '\[' | grep -v * | awk '{print $2}' | xargs -n 1 eselect bashcomp enable
         为所有用户开启自动完成
 
             eselect bashcomp list | grep '\[' | grep -v * | awk '{print $2}' | xargs -n 1 eselect bashcomp enable --global
     * tmux设置和终端提示设置
         ~/.bashrc里增加
-        
+
             alias tmux='tmux -2'        //使用tmux+vim必须要这个
             PS1='\[\033[01;32m\][\u@\h\[\033[00m\] \[\033[01;34m\]\W]\[\033[00m\]\\$ '
     * 退出的时候保存history
         在~/.bash_logout增加
-        
+
             history -a
             clear
     * 透明  
         配置文件[compton](https://github.com/chjj/compton/blob/master/compton.sample.conf)，可以根据需要更改，如
-        
+
             fading = false  //表示是否开启动画
             inactive-opacity = 0.8    //表示窗口失去焦点的透明度
             active-opacity  = 0.8      //表示窗口得到焦点的透明度
@@ -142,7 +142,7 @@
             cd /var/log
             j bin   //就可以到之前cd过的/usr/local/bin
     * 设置~/.xintrc
-        
+
             xset -dpms  //禁止自动关闭显示器，比如休眠
             xset s noblank  //关闭屏保的背景
             xset s noexpose //关闭屏保
@@ -167,16 +167,16 @@
 * xterm设置
     * 创建~/.Xresources，写入
 
-            ! xterm ---------------------------------------------------------------------- 
-            xterm*scrollBar: false 
-            xterm*rightScrollBar: false 
-            xterm*background: black 
-            xterm*foreground: white 
-            ! English font 
-            xterm*faceName: DejaVu Sans Mono:antialias=True:pixelsize=14 
-            ! Chinese font 
-            ! xterm*faceNameDoublesize: WenQuanYi Micro Hei:pixelsize=14 
-            xterm*faceNameDoublesize: WenQuanYi Micro Hei Mono:pixelsize=14 
+            ! xterm ----------------------------------------------------------------------
+            xterm*scrollBar: false
+            xterm*rightScrollBar: false
+            xterm*background: black
+            xterm*foreground: white
+            ! English font
+            xterm*faceName: DejaVu Sans Mono:antialias=True:pixelsize=14
+            ! Chinese font
+            ! xterm*faceNameDoublesize: WenQuanYi Micro Hei:pixelsize=14
+            xterm*faceNameDoublesize: WenQuanYi Micro Hei Mono:pixelsize=14
             xterm*locale: zh_CN.UTF-8
     * 写入到~/.xinitrc
 
@@ -196,7 +196,7 @@
         emerge -av wpa_supplicant     //不要加入自动运行，因为dhcpd会自动读取配置来启动的
 
     编辑/etc/wpa_supplicant/wpa_supplicant.conf，输入
-    
+
         # Allow users in the 'wheel' group to control wpa_supplicant
         ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=wheel
         #自动扫描无线
@@ -215,39 +215,40 @@
                 priority=5      #优先级
         }
     在/etc/conf.d/net里增加(有线的配置还留着，会出现两个网卡同时联网的情况)
-    
+
         modules_wlp3s0="wpa_supplicant"
         config_wlp3s0="dhcp"
 
     然后可以执行下面的命令查看是否成功启动，以及log
-    
+
         wpa_supplicant -Dnl80211 -iwlp3s0 -C/var/run/wpa_supplicant/ -c/etc/wpa_supplicant/wpa_supplicant.conf -dd
     然后执行
-    
+
         ln -s /etc/init.d/net.lo /etc/init.d/net.wlp3s0
         /etc/init.d/net.wlp3s0 restart     //这样就算无线重启，也会自动连接
         rc-update add net.wlp3s0 default
 
 * startx+awesome
     * 安装
-        
+
             emerge -av awesome
     * 设置
         * 改成终端登录自动启动startx
 
             在~/.bash_profile最后增加
-                tty=`tty`
+            
+                tty=``tty``
                 #[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx      //archlinux里可以这样，但gentoo里无法成功，后来改成如下
                 #https://wiki.gentoo.org/wiki/X_without_Display_Manager
                 [[ -z $DISPLAY && "$tty" = "/dev/tty1" ]] && exec startx
         * 在~/.xinitrc最后增加，特别强调，任何时候，一定要保持下面这个内容在最后
-                
+
                 exec ck-launch-session dbus-launch --sh-syntax --exit-with-session awesome
 * 更新系统
-	
-	emaint sync -a
-	emerge -av --update --newuse --deep --with-bdeps=y @world
+
+      emaint sync -a
+      emerge -av --update --newuse --deep --with-bdeps=y @world
 
 * 大功告成，重启
-    
+
         shutdown -r now
