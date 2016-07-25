@@ -236,8 +236,8 @@
         * 改成终端登录自动启动startx
 
             在~/.bash_profile最后增加
-            
-                tty=``tty``
+
+                tty=`tty`
                 #[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx      //archlinux里可以这样，但gentoo里无法成功，后来改成如下
                 #https://wiki.gentoo.org/wiki/X_without_Display_Manager
                 [[ -z $DISPLAY && "$tty" = "/dev/tty1" ]] && exec startx
@@ -246,8 +246,8 @@
                 exec ck-launch-session dbus-launch --sh-syntax --exit-with-session awesome
 * 更新系统
 
-      emaint sync -a
-      emerge -av --update --newuse --deep --with-bdeps=y @world
+        emaint sync -a
+        emerge -av --update --newuse --deep --with-bdeps=y @world
 
 * 大功告成，重启
 
