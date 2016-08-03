@@ -38,5 +38,5 @@
                     \}
 * 使用
     在web目录下增加文件test.php，添加一些php代码，选择任意行，按F10是开关断点  
-    按F5是开始调试，这是要尽快打开浏览器并访问http://localhost/test.php，然后回到vim
+    按F5是开始调试，这是要尽快打开浏览器并访问http://localhost/test.php，然后回到vim  
     按F2进行步进，不需要在URL后面添加?XDEBUG_SESSION_START=1
