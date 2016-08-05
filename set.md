@@ -102,6 +102,8 @@
         emerge -av genlop   //统计各个软件的安装耗时，如genlop -t firefox
         emerge -av xchm   //chm文件阅读
         emerge -av apache-tools   //如果不想用apache，但想用ab的话，安装这个
+        emerge -av veracrypt    //truecrypt新版
+        emerge -av aliedit      //支付宝控件
 
 * 设置
     * 用户组设置和权限设置
