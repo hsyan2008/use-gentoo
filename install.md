@@ -123,7 +123,7 @@
             L10N="zh-CN"            //安装thunderbird、libreoffice-l10n的时候，安装中文包
             VIDEO_CARDS="intel i965"     //这是我台式机的配置，笔记本是radeon r600
             INPUT_DEVICES="evdev synaptics"     //synaptics是触摸板
-            USE="python pulseaudio git subversion gnome-keyring bash-completion vim-syntax tk"
+            USE="python pulseaudio git subversion gnome-keyring bash-completion vim-syntax tk icu" #icu是安装chromium需要
             CPU_FLAGS_X86="mmx mmxext sse sse2 sse3 sse4_1 ssse3"   //上一步看到的指令集
 
 * 设置时区
