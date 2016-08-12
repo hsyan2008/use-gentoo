@@ -5,7 +5,7 @@
         PHP_TARGETS="php5-6"
     在/etc/portage/package.use里增加
 
-        dev-lang/php  curl fpm gd mysql mysqli pdo postgres pcntl sockets sqlite
+        dev-lang/php  curl intl fpm gd mysql mysqli pdo postgres pcntl sockets sqlite
     如果nginx默认不装fastcgi，也要加上
 
         www-servers/nginx NGINX_MODULES_HTTP: fastcgi
@@ -14,7 +14,7 @@
         NGINX_MODULES_HTTP="fastcgi"
 * 安装
 
-        emerge -av nginx php
+        emerge -av nginx php pecl-memcached pecl-redis pear
 * 配置php
     * nginx的配置  
     在/etc/nginx/nginx.conf里的http段里增加
