@@ -35,3 +35,16 @@
 
         /etc/init.d/nginx restart
         /etc/init.d/php-fpm restart
+* 安装mysql
+
+        emerge -av mysql mysql-workbench phpmyadmin
+* 配置
+        
+        emerge --config dev-db/mysql
+        mysql_secure_installation
+        rc-update add mysql default
+        rc-service mysql restart
+        #下面的命令，-s选项指定web服务器，也可以在/etc/vhosts/webapp-config里指定
+        /usr/sbin/webapp-config -s nginx -h localhost -u root -d /phpmyadmin -I phpmyadmin 4.5.5.1 
+        #phpmyadmin的配置请参考phpmyadmin官网
+

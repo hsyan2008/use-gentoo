@@ -8,6 +8,6 @@
 * [使用lantern](lantern.md)
 * [安装使用gitbook](gitbook.md)
 * [添加本地Overlay](add_local_overlay.md)
-* [安装nginx+php](nginx_php.md)
+* [安装nginx+php+mysql](nginx_php_mysql.md)
 * [vim+xdebug调试php](vim_xdebug_php.md)
 
