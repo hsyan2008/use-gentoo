@@ -76,7 +76,7 @@
         #emerge -av gnome-extra/sushi     //支持nautilus预览，安装nautilus自动装上
         emerge -av sys-apps/usb_modeswitch     //自动挂载
         emerge -av dev-vcs/git subversion mercurial bzr      //版本管理
-        emerge -av guake tilda    //下拉式终端，支持透明，选择一个即可
+        emerge -av guake tilda(可能需要安装vte的特定版本)   //下拉式终端，支持透明，选择一个即可
         emerge -av terminator       //分屏式终端
         emerge -av xrandr arandr 	//分辨率和屏幕设置
         emerge -av dmenu    //快速启动器，支持模糊搜索
