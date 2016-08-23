@@ -104,6 +104,7 @@
         emerge -av apache-tools   //如果不想用apache，但想用ab的话，安装这个
         emerge -av veracrypt    //truecrypt新版
         emerge -av aliedit      //支付宝控件
+        emerge -av privoxy      //ssh隧道是socket5，可以通过这个工具转成http
 
 * 设置
     * 用户组设置和权限设置
