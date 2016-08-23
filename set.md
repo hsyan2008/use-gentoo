@@ -105,6 +105,7 @@
         emerge -av veracrypt    //truecrypt新版
         emerge -av aliedit      //支付宝控件
         emerge -av privoxy      //ssh隧道是socket5，可以通过这个工具转成http
+        emerge -av proxychains  //在终端下使用socket5代理
 
 * 设置
     * 用户组设置和权限设置
