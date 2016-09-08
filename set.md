@@ -98,7 +98,7 @@
         emerge -av app-office/libreoffice
         emerge -av tmux app-text/tree expect
         emerge -av sublime-text
-        emerge -av wireshark    //网络嗅探
+        emerge -av wireshark    //网络嗅探，安装后执行gpasswd -a saxon wireshark;newgrp wireshark
         emerge -av genlop   //统计各个软件的安装耗时，如genlop -t firefox
         emerge -av xchm   //chm文件阅读
         emerge -av apache-tools   //如果不想用apache，但想用ab的话，安装这个
