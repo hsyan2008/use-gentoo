@@ -2,7 +2,7 @@
 
 * 清理安装文件，创建用户
 
-        useradd -m -G users,wheel,audio,lp,video,usb,cdrom -s /bin/bash saxon
+        useradd -m -G users,wheel,audio,lp,video,usb,cdrom -s /bin/bash $USER
         rm /stage3-*.tar.bz2*
 * 配置bash
     拷贝默认配置
@@ -98,7 +98,7 @@
         emerge -av app-office/libreoffice
         emerge -av tmux app-text/tree expect
         emerge -av sublime-text
-        emerge -av wireshark    //网络嗅探，安装后执行gpasswd -a saxon wireshark;newgrp wireshark
+        emerge -av wireshark    //网络嗅探，安装后执行gpasswd -a $USER wireshark;newgrp wireshark
         emerge -av genlop   //统计各个软件的安装耗时，如genlop -t firefox
         emerge -av xchm   //chm文件阅读
         emerge -av apache-tools   //如果不想用apache，但想用ab的话，安装这个
@@ -110,8 +110,8 @@
 * 设置
     * 用户组设置和权限设置
 
-            gpasswd -a saxon plugdev     //USB
-            gpasswd -a saxon uucp          //蓝牙、ppp、rfcomm
+            gpasswd -a $USER plugdev     //USB
+            gpasswd -a $USER uucp          //蓝牙、ppp、rfcomm
 
             chown root:mail /var/spool/mail/
             chmod 03775 /var/spool/mail/
@@ -167,7 +167,7 @@
 
         emerge -av alsa-utils
         rc-update add alsasound boot
-        getfacl /dev/snd/controlC0 | grep saxon
+        getfacl /dev/snd/controlC0 | grep $USER
         /etc/init.d/alsasound start
         alsamixer   //方向键向上是加音量，ESC是退出，m是开关，尤其是第二列，要把MM变为00
 * xterm设置

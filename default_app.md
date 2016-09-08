@@ -2,11 +2,11 @@
 * 文件说明
     1. /usr/portage/mate-base/mate-session-manager/files/defaults.list  
         清单，并没有起作用，可以在设置的时候做参考
-    2. /home/saxon/.config/mimeapps.list  
+    2. ~/.config/mimeapps.list  
         有Default Applications和Added Associations  
         Default Applications的优先级高于第三点  
         Added Associations并没有效果  
-    3. /home/saxon/.local/share/applications/mimeapps.list  
+    3. ~/.local/share/applications/mimeapps.list  
         只有Default Applications，优先级低于第二点  
 * 查看方式
         
