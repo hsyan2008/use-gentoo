@@ -81,7 +81,7 @@
         emerge -av xrandr arandr 	//分辨率和屏幕设置
         emerge -av dmenu    //快速启动器，支持模糊搜索
         emerge -av gnome-icon-theme xcursor-themes     //系统图标和鼠标主题
-        emerge -av slock scrot aria2 numlockx      //分别是锁屏、截图、下载、小键盘
+        emerge -av slock xautolock scrot aria2 numlockx      //分别是锁屏、截图、下载、小键盘
         emerge -av adobe-flash gpicview nautilus  //分别是falsh、图片、文件浏览
         emerge -av fcitx fcitx-configtool fcitx-sunpinyin   //输入法
         emerge -av gentoo-bashcomp bash-completion      //自动完成
@@ -163,6 +163,8 @@
 	    fcitx >/dev/null 2>&1 &
 	    guake >/dev/null 2>&1 &
 	    compton --config ~/.compton.sample.conf >/dev/null 2>&1 &
+        xautolock -time 1 -locker slock &
+        numlockx &
 * 声音
 
         emerge -av alsa-utils
