@@ -12,6 +12,7 @@
     编辑~/.bashrc,增加
 
         alias ll='ls --color=auto -l'
+        alias rm='rm -i'
         HISTCONTROL=ignoredups      //连续名字不重复出现，和下一条冲突，选择一个即可
         HISTCONTROL=erasedups       //所有的重复只出现一次，和上一条冲突，选择一个即可
         HISTSIZE=10000
