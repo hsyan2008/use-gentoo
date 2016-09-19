@@ -11,4 +11,5 @@
 * [安装nginx+php+mysql](nginx_php_mysql.md)
 * [vim+xdebug调试php](vim_xdebug_php.md)
 * [设置默认程序](default_app.md)
+* [快捷键工具xbindkeys](xbindkeys.md)
 
