@@ -132,7 +132,7 @@
         在~/.bash_logout增加
 
             history -a
-            clear
+            #clear
     * 透明  
         配置文件[compton](https://github.com/chjj/compton/blob/master/compton.sample.conf)，可以根据需要更改，如
 
