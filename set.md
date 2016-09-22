@@ -92,6 +92,7 @@
         emerge -av autojump     //快速cd
         emerge -av gentoolkit //gentoo的管理脚本，如equery
         emerge -av bind-tools     //dig、nslookup、host、nsupdate等工具
+        emerge -av traceroute //查看ip路由
         emerge -av netkit-telnetd     //telnet
         emerge -av file-roller rar     //压缩包管理
         emerge -av cdrtools     //命令行刻录工具

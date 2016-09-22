@@ -184,7 +184,8 @@
 
             config_enp3s0="192.168.1.173 netmask 255.255.255.0 brd 192.168.1.255"
             routes_enp3s0="default via 192.168.1.1"
-            dns_servers_enp3s0="114.114.114.114 223.5.5.5 192.168.1.1"     //指定dns
+            #dns_servers_enp3s0="114.114.114.114 223.5.5.5 192.168.1.1"     //指定dns，无效
+            dns_servers="114.114.114.114 223.5.5.5 192.168.1.1"     //指定dns
             config_enp3s0="dhcp"
         如果是多ip，第一行改成
 
