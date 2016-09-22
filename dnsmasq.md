@@ -24,6 +24,6 @@
     * 编辑/etc/conf.d/net，增加下面一行(貌似静态ip方式无效)
             
             dhcpcd_enp0s31f6="--nohook resolv.conf"
-* 说明
+* 说明  
     /etc/resolv.conf被修改为127.0.0.1后，所有dns解析都走本地的53端口，而53端口已经被dnsmasq接管  
     因为设置了resolv-file，所以dnsmasq的解析服务器是resolv-file文件里指定
