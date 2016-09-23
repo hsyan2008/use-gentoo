@@ -29,6 +29,7 @@
                 location ~ .php$ {
                         fastcgi_pass 127.0.0.1:9000;
                         include fastcgi.conf;
+                        include uwsgi_params;   #pathinfo需要
                 }
     或者参考[Nginx](https://wiki.gentoo.org/wiki/Nginx)
 * 启动
