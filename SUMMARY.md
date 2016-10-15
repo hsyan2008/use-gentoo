@@ -13,4 +13,5 @@
 * [设置默认程序](default_app.md)
 * [快捷键工具xbindkeys](xbindkeys.md)
 * [dns缓存](dnsmasq.md)
+* [ibus输入法](ibus.md)
 
