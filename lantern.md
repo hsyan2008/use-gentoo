@@ -27,3 +27,13 @@
         export http_proxy=http://127.0.0.1:8787
         export https_proxy=https://127.0.0.1:8787
         export no_proxy=127.0.0.1,192.168.1*
+    或者
+
+        alias proxy_lantern="export http_proxy=http://127.0.0.1:8787;export https_proxy=https://127.0.0.1:8787;export no_proxy=127.0.0.1,192.168.10.*"
+        alias proxy_off="unset http_proxy;unset https_proxy;unset no_proxy"
+
+    这样可以
+        
+        proxy_lantern   #开启lantern代理
+        proxy_off       #关闭代理
+
