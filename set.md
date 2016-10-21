@@ -108,6 +108,7 @@
         emerge -av aliedit      //支付宝控件
         emerge -av privoxy      //ssh隧道是socket5，可以通过这个工具转成http和https
         emerge -av proxychains  //在终端下使用socket5代理
+        emerge -av phddns       //花生壳，内网机器需要做端口映射
 
 * 设置
     * 用户组设置和权限设置
