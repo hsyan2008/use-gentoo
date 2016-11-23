@@ -110,6 +110,7 @@
         emerge -av proxychains  //在终端下使用socket5代理
         emerge -av phddns       //花生壳，内网机器需要做端口映射
         emerge -av filezilla    //ftp客户端
+        emerge -av cmus    //终端下音乐播放器
 
 * 设置
     * 用户组设置和权限设置
