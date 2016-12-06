@@ -11,3 +11,4 @@
 * 安装
 
         emerge -av genymotion
+* 还有几个方式，比较正统，详情见[brother-overlay](https://github.com/stefan-langenmaier/brother-overlay)
