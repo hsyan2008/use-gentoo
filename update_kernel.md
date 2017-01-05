@@ -33,7 +33,7 @@
         * 步骤二、  
             参考[GRUB2](https://wiki.gentoo.org/wiki/GRUB2)
         
-                grub2-mkconfig -o /boot/grub/grub.cfg
+                grub2-mkconfig -o /boot/grub/grub.cfg //注意新版grub的命令是grub-mkconfig
         * 步骤四、  
             参考[Kernel/Removal](https://wiki.gentoo.org/wiki/Kernel/Removal)
             
