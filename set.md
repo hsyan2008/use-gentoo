@@ -112,6 +112,7 @@
         emerge -av filezilla    //ftp客户端
         emerge -av cmus    //终端下音乐播放器
         emerge -av aircrack-ng    //破解wep密码，教程见[破解WIFI无线网络的WEP密钥](https://linux.cn/article-2382-1.html)
+        emerge -av netcat       //网络工具nc
 
 * 设置
     * 用户组设置和权限设置
