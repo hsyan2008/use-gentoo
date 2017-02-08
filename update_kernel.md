@@ -52,3 +52,4 @@
                 modprobe vboxdrv     //解决提示 /etc/init.d/vboxdrv setup
                 modprobe vboxnetflt     //解决提示 Failed to open/create the internal network
                 modprobe vboxnetadp 
+                modprobe vboxpci
