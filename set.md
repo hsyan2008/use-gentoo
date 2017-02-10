@@ -113,6 +113,7 @@
         emerge -av cmus    //终端下音乐播放器
         emerge -av aircrack-ng    //破解wep密码，教程见[破解WIFI无线网络的WEP密钥](https://linux.cn/article-2382-1.html)
         emerge -av netcat       //网络工具nc
+        emerge -av unzip       //记住USE增加natspec，解决中文乱码问题
 
 * 设置
     * 用户组设置和权限设置
