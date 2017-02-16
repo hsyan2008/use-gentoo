@@ -247,7 +247,7 @@
 * startx+awesome
     * 安装
 
-            emerge -av awesome
+            emerge -av awesome //建议最新版，稳定版和chromium的兼容性有问题
     * 设置
         * 改成终端登录自动启动startx
 
