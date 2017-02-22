@@ -114,6 +114,7 @@
         emerge -av aircrack-ng    //破解wep密码，教程见[破解WIFI无线网络的WEP密钥](https://linux.cn/article-2382-1.html)
         emerge -av netcat       //网络工具nc
         emerge -av unzip       //记住USE增加natspec，解决中文乱码问题(中文名文件丢失，建议改用7zip和convmv)
+        emerge -av xprop    //应该已经被其他软件依赖安装了，使用方法是在命令行执行命令，然后鼠标点击窗口内，就可以看到class
 
 * 设置
     * 用户组设置和权限设置

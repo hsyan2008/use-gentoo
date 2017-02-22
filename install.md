@@ -91,8 +91,8 @@
 * 查看new，这个环节比较重要，我这里没有影响  
     通过eselect news list和eselect news read 编号 查看news,以下都是news里的一些信息  
     如果/和/usr在不同分区，内核必须使用initramfs  
-    在package.use里加入下面这行，这样会自动安装32位类库，但会造成编译时间变长  
-    \*/\* abi_x86_32
+    //在package.use里加入下面这行，这样会自动安装32位类库，但会造成编译时间变长  
+    //\*/\* abi_x86_32  改成make.conf里的ABI_X86="32 64"
 
 * 选择合适的profile
 
@@ -125,6 +125,7 @@
             INPUT_DEVICES="evdev synaptics"     //synaptics是触摸板
             USE="python pulseaudio git subversion gnome-keyring bash-completion vim-syntax tk icu" #icu是安装chromium需要
             CPU_FLAGS_X86="mmx mmxext sse sse2 sse3 sse4_1 ssse3"   //上一步看到的指令集
+            ABI_X86="32 64"     //安装32位和64位
 
 * 设置时区
     
