@@ -16,4 +16,5 @@
 * [dns缓存](dnsmasq.md)
 * [ibus输入法](ibus.md)
 * [USE标记的颜色](use.md)
+* [使用wineQQ](qq.md)
 
