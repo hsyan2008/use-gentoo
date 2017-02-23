@@ -5,7 +5,7 @@
 * 安装winetricks-zh，会自动安装上winetricks
     
     emerge -av winetricks-zh
-* 安装字体，不然汉字显示为方块
+* 安装字体，不然汉字显示为方块（请先看后面）
 
     winetricks-zh allfonts  
 * 安装qqlight
@@ -19,3 +19,9 @@
     winecfg可以看到win版本设置，我这里安装后默认的是xp  
     如果出现问题，可以修改全局设置，也可以针对具体程序进行设置
 * 安装的微信无法输入，暂时采用网页版
+* 重要更正，通过winetricks-zh安装的软件，安装后启动没有问题，手动启动就失败，所以重新安装
+* 清理上面安装的东西，一般在.local下
+* 运行winetricks，选择qq
+* 运行qq 
+    
+    wine "~/.wine/drive_c/Program Files/Tencent/QQ/Bin/QQ.exe"
