@@ -85,6 +85,7 @@
         emerge -av slock xautolock scrot aria2 numlockx      //分别是锁屏、截图(linux自带的import命令也可以截图)、下载、小键盘
         emerge -av adobe-flash gpicview nautilus  //分别是falsh、图片、文件浏览
         emerge -av fcitx fcitx-configtool fcitx-sunpinyin   //输入法，USE需要加上gtk2 gtk3，带剪切板管理
+        emerge -av fcitx-table-extra        //五笔输入法，需要在附加组件里勾选“码表”
         emerge -av gentoo-bashcomp bash-completion      //命令行自动完成
         emerge -av pptpclient rp-pppoe      //pptp vpn pppoe
         emerge -av compton      //透明
