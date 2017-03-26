@@ -117,6 +117,8 @@
         emerge -av unzip       //记住USE增加natspec，解决中文乱码问题(中文名文件丢失，建议改用7zip和convmv)
         emerge -av xprop    //应该已经被其他软件依赖安装了，使用方法是在命令行执行命令，然后鼠标点击窗口内，就可以看到class
         emerge -av brasero  //图形化刻录软件，命令行可以用cdrecord
+        emerge -av transmission     //bt下载工具
+        emerge -av kodi         //xbmc，影视中心
 
 * 设置
     * 用户组设置和权限设置
