@@ -17,4 +17,5 @@
 * [ibus输入法](ibus.md)
 * [USE标记的颜色](use.md)
 * [使用wineQQ](qq.md)
+* [安装微信](wechat.md)
 

@@ -185,6 +185,8 @@
         getfacl /dev/snd/controlC0 | grep $USER
         /etc/init.d/alsasound start
         alsamixer   //方向键向上是加音量，ESC是退出，m是开关，尤其是第二列，要把MM变为00
+        emerge -av volumeicon       #托盘上图表
+        volumeicon &        #加入到.xinitrc
 * xterm设置
     * 创建~/.Xresources，写入
 
