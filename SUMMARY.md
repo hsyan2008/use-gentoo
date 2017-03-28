@@ -18,4 +18,5 @@
 * [USE标记的颜色](use.md)
 * [使用wineQQ](qq.md)
 * [安装微信](wechat.md)
+* [xterm中文设置](xterm.md)
 
