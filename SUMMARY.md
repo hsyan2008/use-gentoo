@@ -19,4 +19,5 @@
 * [使用wineQQ](qq.md)
 * [安装微信](wechat.md)
 * [xterm中文设置](xterm.md)
+* [显示器亮度自动调整](redshift.md)
 
