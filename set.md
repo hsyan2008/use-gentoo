@@ -162,6 +162,7 @@
             j bin   //就可以到之前cd过的/usr/local/bin
     * 设置~/.xintrc
 
+            #xset是图形下的设置，setterm是字符界面下的设置
             xset -dpms  //禁止自动关闭显示器，比如休眠
             xset s noblank  //关闭屏保的背景
             xset s noexpose //关闭屏保

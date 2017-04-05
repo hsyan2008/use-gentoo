@@ -23,3 +23,4 @@
 
         xrdb -load .Xresources
 * 重启xterm
+* 重启后失效，考虑放到.xinitrc里
