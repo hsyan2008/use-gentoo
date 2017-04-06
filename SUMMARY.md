@@ -20,4 +20,5 @@
 * [安装微信](wechat.md)
 * [xterm中文设置](xterm.md)
 * [显示器亮度自动调整](redshift.md)
+* [shell设置vi模式](shell_vi_mode.md)
 
