@@ -69,7 +69,7 @@
 * 配置源
 
         mkdir /mnt/gentoo/etc/portage/repos.conf
-	cp /mnt/gentoo/usr/share/portage/config/repos.conf /mnt/gentoo/etc/portage/repos.conf/gentoo.conf
+	    cp /mnt/gentoo/usr/share/portage/config/repos.conf /mnt/gentoo/etc/portage/repos.conf/gentoo.conf
 
 * 拷贝DNS信息
 
