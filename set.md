@@ -49,12 +49,15 @@
 
 * 安装第三方源
 
-      emerge -av app-portage/layman //安装仓库管理工具,类似管理archlinux的core、extra、aur等
+        emerge -av app-portage/layman //安装仓库管理工具,类似管理archlinux的core、extra、aur等
 	    echo "source /var/lib/layman/make.conf" >> /etc/portage/make.conf
     	layman -L     //列出所有第三方源
     	layman -a gentoo-zh //增加源，如果前面是红色星星，表示没有装git，其他也类似，可以为layman添加use
     	layman -S     //更新
-    	eix-update
+    	eix-update  
+    如果不让该layman不参与update，可以在/etc/portage/package.mask里加入  
+        
+        */*::gentoo-zh
 
 * 浏览器
 
@@ -104,7 +107,7 @@
         emerge -av wireshark    //网络嗅探，安装后执行gpasswd -a $USER wireshark;newgrp wireshark
         emerge -av genlop   //统计各个软件的安装耗时，如genlop -t firefox
         emerge -av xchm   //chm文件阅读
-        emerge -av apache-tools   //如果不想用apache，但想用ab的话，安装这个
+        emerge -av apache-tools   //如果不想用apache，但想用ab的话，安装这个，也可以使用wrk来压测，wrk -d 10s url
         emerge -av veracrypt    //truecrypt新版
         emerge -av aliedit      //支付宝控件
         emerge -av privoxy      //ssh隧道是socket5，可以通过这个工具转成http和https
