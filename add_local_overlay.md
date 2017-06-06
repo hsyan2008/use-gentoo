@@ -19,4 +19,6 @@
     如果报SSLPeerUnverified peer not authenticated，就打开Tools->Options,勾选Force那个，就可以了  
     选择安装'Android SDK Platform-tools'和'Android SDK Tools'就可以了  
     安装完成后打开genymotion的Setting，设置ADB为/opt/android-sdk-update-manager
+
+* 最新版本的genymotion-bin(gentoo源里的2.9.0-r1)，不会自动安装android-sdk-update-manager，需要自己手动安装
         
