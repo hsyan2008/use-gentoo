@@ -166,6 +166,7 @@
     * 设置~/.xintrc
 
             #xset是图形下的设置，setterm是字符界面下的设置
+            #参考[Display Power Management Signaling](https://wiki.archlinux.org/index.php/Display_Power_Management_Signaling_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87))
             xset -dpms  //禁止自动关闭显示器，比如休眠
             xset s noblank  //关闭屏保的背景
             xset s noexpose //关闭屏保
