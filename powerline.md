@@ -8,6 +8,10 @@
 * 安装powerline
 
         pip install git+git://github.com/Lokaltog/powerline
+* 安装powerline字体
+
+        git clone https://github.com/powerline/fonts
+        cd fonts;./install.sh
 * 如果要设置bash，在~/.bashrc增加
     
         if [ -f `which powerline-daemon` ]; then
