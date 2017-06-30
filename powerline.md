@@ -12,6 +12,9 @@
 
         git clone https://github.com/powerline/fonts
         cd fonts;./install.sh
+        cp fontconfig/50-enable-terminess-powerline.conf ~/.config/fontconfig/conf.d/
+        mkdir -p ~/.config/fontconfig/conf.d
+        fc-cache -vf
 * 如果要设置bash，在~/.bashrc增加
     
         if [ -f `which powerline-daemon` ]; then
