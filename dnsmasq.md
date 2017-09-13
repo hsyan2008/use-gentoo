@@ -27,3 +27,5 @@
 * 说明  
     /etc/resolv.conf被修改为127.0.0.1后，所有dns解析都走本地的53端口，而53端口已经被dnsmasq接管  
     因为设置了resolv-file，所以dnsmasq的解析服务器是resolv-file文件里指定
+* 补充
+    可以考虑搭配pdnsd，参考[pdnsd + dnsmasq 解决 DNS 污染问题和国内网站域名解析问题](http://bbs.archlinuxcn.org/viewtopic.php?pid=29232)和[用pdnsd实现DNS解析加速](https://wordpress.youran.me/pdnsd/)
