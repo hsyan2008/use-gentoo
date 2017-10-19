@@ -33,7 +33,7 @@
         * 步骤二、  
             参考[GRUB2](https://wiki.gentoo.org/wiki/GRUB2)
         
-                grub2-mkconfig -o /boot/grub/grub.cfg //注意新版grub的命令是grub-mkconfig
+                grub-mkconfig -o /boot/grub/grub.cfg //注意新版grub的命令是grub-mkconfig
         * 步骤四、  
             参考[Kernel/Removal](https://wiki.gentoo.org/wiki/Kernel/Removal)
             
@@ -44,7 +44,7 @@
                 rm /boot/kernel-3.X.Y
                 rm /boot/System.map-3.X.Y
                 rm /boot/config-3.X.Y
-                grub2-mkconfig -o /boot/grub/grub.cfg
+                grub-mkconfig -o /boot/grub/grub.cfg
         * 步骤五、  
             如果重启后virtualbox无法启动，执行下面的命令
 

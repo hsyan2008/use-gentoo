@@ -221,11 +221,11 @@
     /dev/sda是启动分区所在
     
     	如果是BIOS
-        grub2-install /dev/sda
+        grub-install /dev/sda
 	如果是UEFI
-	grub2-install --target=x86_64-efi --efi-directory=/boot
+	grub-install --target=x86_64-efi --efi-directory=/boot
 
-        grub2-mkconfig -o /boot/grub/grub.cfg
+        grub-mkconfig -o /boot/grub/grub.cfg
 * 安装完成，重启，建议在shutdown后才把光盘取出，否则可能会报io错误
         
         exit
