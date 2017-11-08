@@ -23,4 +23,5 @@
 * [shell设置vi模式](shell_vi_mode.md)
 * [安装i3](i3.md)
 * [使用powerline做状态栏](powerline.md)
+* [bash自动完成](completion.md)
 
