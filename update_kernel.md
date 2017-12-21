@@ -19,6 +19,7 @@
             * genkernel使用的默认配置在/usr/share/genkernel/arch/x86_64/，完成后，会在/etc/kernels/里生成一个配置文件  
             * genkernel all生成System.map-genkernel、initramfs-genkernel和kernel-genkernel  
             * make install生成System.map、config和vmlinuz  
+            * kernel-genkernel可以通过genkernel bzImage生成，而vmlinuz和bzImage相关，应该就是同个东西
             * 综合以上，grub.cfg里配置会有以下几种类型，我使用的是第二个     
                 * linux后是vmlinuz     （make install）
                 * linux后是kernel-genkernel，initrd后是initramfs-genkernel （genkernel all）
