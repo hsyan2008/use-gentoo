@@ -41,6 +41,7 @@
 
 * 安装x(如果想用图形界面)
     参考[Xorg/Configuration](https://wiki.gentoo.org/wiki/Xorg/Configuration)、[AMD/ATI显卡](https://wiki.gentoo.org/wiki/Radeon)、[Intel显卡](https://wiki.gentoo.org/wiki/Intel#Kernel)
+    [Virtualbox虚拟机](https://wiki.gentoo.org/wiki/VirtualBox#Windows_guests)
 
         emerge -av eix sudo
         emerge -av x11-base/xorg-drivers	//显卡驱动

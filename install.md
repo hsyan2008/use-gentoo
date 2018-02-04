@@ -55,7 +55,7 @@
         cd /mnt/gentoo
     去[gentoo官网](https://www.gentoo.org/downloads/)下载对应的stage3包
 
-        tar xvjpf stage3-*.tar.bz2 --xattrs
+        tar xpf stage3-*.tar.{bz2,xz} --xattrs-include='*.*' --numeric-owner
 * 配置make.conf里的编译选项
     查看CPU类型
     
@@ -67,7 +67,8 @@
         CXXFLAGS="${CFLAGS}"
         MAKEOPTS="-j3"          //cpu核数+1=3
 * 配置源
-
+        #按空格选择
+        mirrorselect -i -o >> /mnt/gentoo/etc/portage/make.conf
         mkdir /mnt/gentoo/etc/portage/repos.conf
 	    cp /mnt/gentoo/usr/share/portage/config/repos.conf /mnt/gentoo/etc/portage/repos.conf/gentoo.conf
 
@@ -115,17 +116,17 @@
             emerge --info | grep ^USE
     * 查看cpu支持的指令集
     
-            emerge -1v app-portage/cpuinfo2cpuflags
-            cpuinfo2cpuflags        //记下执行结果，下一步用到
+            emerge -1v app-portage/cpuid2cpuflags
+            cpuid2cpuflags        //记下执行结果，下一步用到
     * 修改/etc/portage/make.conf，显卡配置参考[Xorg/Guide](https://wiki.gentoo.org/wiki/Xorg/Guide)
     
             LINGUAS="zh_CN en"      //安装软件包的时候，如果有中文语言包，就顺便装上
             L10N="zh-CN"            //安装thunderbird、libreoffice-l10n的时候，安装中文包
-            VIDEO_CARDS="intel i965"     //这是我台式机的配置，笔记本是radeon r600
+            VIDEO_CARDS="intel i965"     //这是我台式机的配置，笔记本是radeon r600，virtualbox虚拟机里是virtualbox
             INPUT_DEVICES="evdev synaptics"     //synaptics是触摸板
             USE="python pulseaudio git subversion gnome-keyring bash-completion vim-syntax tk icu" #icu是安装chromium需要
             CPU_FLAGS_X86="mmx mmxext sse sse2 sse3 sse4_1 ssse3"   //上一步看到的指令集
-            ABI_X86="32 64"     //安装32位和64位
+            ABI_X86="32 64"     //安装32位和64位，如果存在循环依赖，可以先注释掉
 
 * 设置时区
     
