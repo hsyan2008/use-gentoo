@@ -1,5 +1,7 @@
 # 安装基本系统
-##强烈建议对照[官方文档](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation)参考
+
+## 强烈建议对照[官方文档](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation)参考
+
 * 从[gentoo官网](https://gentoo.org/downloads/)下载iso，我这里下载的是amd64下的Minimal Installation CD
 * 光盘启动
 * 网络链接
@@ -69,7 +71,7 @@
 * 配置源
         #按空格选择
         mirrorselect -i -o >> /mnt/gentoo/etc/portage/make.conf
-        mkdir /mnt/gentoo/etc/portage/repos.conf
+        mkdir -p /mnt/gentoo/etc/portage/repos.conf
 	    cp /mnt/gentoo/usr/share/portage/config/repos.conf /mnt/gentoo/etc/portage/repos.conf/gentoo.conf
 
 * 拷贝DNS信息
@@ -98,7 +100,7 @@
 * 选择合适的profile
 
         eselect profile list
-        eselect profile set 3 //desktop
+        eselect profile set 16 #17.0/desktop
 * 更新@world
 
         emerge --ask --update --deep --newuse @world
@@ -151,7 +153,7 @@
         在/etc/env.d/02locale里增加
 
             LC_COLLATE="C"
-	    env-update && source /etc/profile && export PS1="(chroot) $PS1"
+	        env-update && source /etc/profile && export PS1="(chroot) $PS1"
 * 分区挂载设置  
     编辑/etc/fstab
     
@@ -197,14 +199,18 @@
     * 设置自启动
     
             cd /etc/init.d
-            ln -s net.lo net.eth0
-            rc-update add net.eth0 default
+            ln -s net.lo net.enp3s0
+            rc-update add net.enp3s0 default
 * 设置新系统的root密码，一定要做，否则重启后无法登陆
 
         passwd
 * 安装一些必要的系统工具
 
-        emerge -av syslog-ng cronie mlocate dhcpcd logrotate ppp
+        emerge -av syslog-ng cronie mlocate dhcpcd logrotate
+        #如果是pppoe
+        emerge -av ppp
+        #如果是无线网络
+        emerge -av wpa_supplicant
         rc-update add syslog-ng default
         rc-update add cronie default
         rc-update add sshd default
@@ -214,17 +220,17 @@
         chmod o+rx /var/spool/cron
 * 安装引导，os-prober是多系统的时候有用
 
-	如果是UEFI，先执行
+	如果是UEFI，先执行  
 	echo GRUB_PLATFORMS="efi-64" >> /etc/portage/make.conf
 
         emerge -av sys-boot/grub os-prober
     grub的默认配置在/etc/default/grub，比如可以把超时时间改成3秒  
     /dev/sda是启动分区所在
     
-    	如果是BIOS
+        #如果是BIOS
         grub-install /dev/sda
-	如果是UEFI
-	grub-install --target=x86_64-efi --efi-directory=/boot
+	    #如果是UEFI
+	    grub-install --target=x86_64-efi --efi-directory=/boot
 
         grub-mkconfig -o /boot/grub/grub.cfg
 * 安装完成，重启，建议在shutdown后才把光盘取出，否则可能会报io错误
@@ -235,5 +241,5 @@
         umount -l /mnt/gentoo{/boot,/proc,}
         shutdown -h now
 
-#参考
+# 参考  
 [Installing Gentoo](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation)
