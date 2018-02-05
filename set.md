@@ -125,6 +125,7 @@
         emerge -av brasero  //图形化刻录软件，命令行可以用cdrecord
         emerge -av transmission     //bt下载工具
         emerge -av kodi         //xbmc，影视中心
+        emerge -av ntfs3g       //ntfs格式的移动硬盘挂载是只读，安装这个才可以读写
 
 * 设置
     * 如果是virtualbox里安装的gentoo
