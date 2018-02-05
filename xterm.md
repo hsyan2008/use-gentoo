@@ -12,6 +12,9 @@
 		! xterm ----------------------------------------------------------------------
 		xterm*scrollBar: true
 		xterm*rightScrollBar: true
+
+        xterm*background: black
+        xterm*foreground: white
 		
 		! English font
 		xterm*faceName: DejaVu Sans Mono:antialias=True:pixelsize=16
@@ -22,5 +25,7 @@
 * 执行
 
         xrdb -load .Xresources
+* 写入到~/.xinitrc
+        
+        [[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
 * 重启xterm
-* 重启后失效，考虑放到.xinitrc里

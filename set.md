@@ -1,8 +1,14 @@
 # 基本配置和通用软件安装
 
-* 清理安装文件，创建用户
+* 如果需要，设置允许ssh远程登陆root，编辑/etc/ssh/sshd_config,修改成
+    
+        PermitRootLogin yes
+    重启  
 
-        useradd -m -G users,wheel,audio,lp,video,usb,cdrom -s /bin/bash $USER
+        /etc/init.d/sshd restart
+* 清理安装文件，创建用户，$USER请替换成自己的用户名
+
+        useradd -m -G users,wheel,audio,lp,video,usb,cdrom,portage -s /bin/bash $USER
         rm /stage3-*.tar.bz2*
 * 配置bash
     拷贝默认配置
@@ -13,11 +19,11 @@
 
         alias ll='ls --color=auto -l'
         alias rm='rm -i'
-        HISTCONTROL=ignoredups      //连续名字不重复出现，和下一条冲突，选择一个即可
-        HISTCONTROL=erasedups       //所有的重复只出现一次，和上一条冲突，选择一个即可
+        HISTCONTROL=ignoredups      #连续名字不重复出现，和下一条冲突，选择一个即可
+        HISTCONTROL=erasedups       #所有的重复只出现一次，和上一条冲突，选择一个即可
         HISTSIZE=10000
         HISTFILESIZE=10000
-* 更新的源配置  
+* 更新的源配置，如果安装的时候已操作，请跳过 
     不在make.conf了，在/etc/portage/repos.conf/，见[Project:Portage/Sync](https://wiki.gentoo.org/wiki/Project:Portage/Sync)
 
         mkdir -p /etc/portage/repos.conf
@@ -70,20 +76,18 @@
     以后就可以执行chrome来启动，这样可以把缓存写到内存，而不是硬盘，提高性能
 * 字体
 
-        emerge -av wqy-bitmapfont wqy-microhei wqy-unibit wqy-zenhei    //文泉驿字体
-        eselect fontconfig list     //字体列表
-        eselect fontconfig enable      //字体设置
+        emerge -av wqy-bitmapfont wqy-microhei wqy-unibit wqy-zenhei    //文泉驿字体，根据需要选择，一般编程用wqy-microhei
         emerge -av media-fonts/inconsolata      //推荐字体，建议设置成大小14
+        eselect fontconfig list     //字体列表
+        eselect fontconfig enable n     //字体设置，n想要启用的字体序号
 
 * 安装常用软件
 
-        #emerge -av logrotate    //日志自动切分
-        #emerge -av gnome-extra/sushi     //支持nautilus预览，安装nautilus自动装上
-        emerge -av sys-apps/usb_modeswitch     //自动挂载
+        emerge -av sys-apps/usb_modeswitch net-misc/bridge-utils     //自动挂载，高级网络配置(virtualbox)
         emerge -av dev-vcs/git subversion mercurial bzr      //版本管理
         emerge -av guake tilda(可能需要安装vte的特定版本)   //下拉式终端，支持透明，选择一个即可
         emerge -av terminator       //分屏式终端
-        emerge -av xrandr arandr 	//分辨率和屏幕设置
+        emerge -av arandr 	//分辨率和屏幕设置，xrandr在安装X的时候一般已经自动装上
         emerge -av dmenu    //快速启动器，支持模糊搜索
         emerge -av gnome-icon-theme xcursor-themes     //系统图标和鼠标主题
         emerge -av slock xautolock scrot aria2 numlockx      //分别是锁屏、截图(linux自带的import命令也可以截图)、下载、小键盘
@@ -101,7 +105,6 @@
         emerge -av netkit-telnetd     //telnet
         emerge -av file-roller rar     //压缩包管理
         emerge -av cdrtools     //命令行刻录工具
-        #emerge -av evince  //pdf阅读，安装nautilus自动装上
         emerge -av app-office/libreoffice
         emerge -av tmux tmux-mem-cpu-load app-text/tree expect
         emerge -av sublime-text
@@ -110,7 +113,7 @@
         emerge -av xchm   //chm文件阅读
         emerge -av apache-tools   //如果不想用apache，但想用ab的话，安装这个，也可以使用wrk来压测，wrk -d 10s url
         emerge -av veracrypt    //truecrypt新版
-        emerge -av aliedit      //支付宝控件
+        emerge -av aliedit      //支付宝控件，需要安装gentoo-zh的layman
         emerge -av privoxy      //ssh隧道是socket5，可以通过这个工具转成http和https
         emerge -av proxychains  //在终端下使用socket5代理
         emerge -av phddns       //花生壳，内网机器需要做端口映射
@@ -118,13 +121,19 @@
         emerge -av cmus    //终端下音乐播放器
         emerge -av aircrack-ng    //破解wep密码，教程见[破解WIFI无线网络的WEP密钥](https://linux.cn/article-2382-1.html)
         emerge -av netcat       //网络工具nc
-        emerge -av unzip       //记住USE增加natspec，解决中文乱码问题(中文名文件丢失，建议改用7zip和convmv)
         emerge -av xprop    //应该已经被其他软件依赖安装了，使用方法是在命令行执行命令，然后鼠标点击窗口内，就可以看到class
         emerge -av brasero  //图形化刻录软件，命令行可以用cdrecord
         emerge -av transmission     //bt下载工具
         emerge -av kodi         //xbmc，影视中心
 
 * 设置
+    * 如果是virtualbox里安装的gentoo
+        
+            gpasswd -a $USER vboxguest
+            rc-update add /etc/init.d/virtualbox-guest-additions default
+    * 按照安装信息操作
+            
+            rc-update add lvm boot
     * 用户组设置和权限设置
 
             gpasswd -a $USER plugdev     //USB
@@ -132,17 +141,19 @@
 
             chown root:mail /var/spool/mail/
             chmod 03775 /var/spool/mail/
+
+            emerge --config =mail-mta/nullmailer-2.0-r1
     * 自动完成    
         为root开启自动完成
 
-            eselect bashcomp list | grep '\[' | grep -v * | awk '{print $2}' | xargs -n 1 eselect bashcomp enable
+            eselect bashcomp list | grep '\[' | grep -v * | awk '{print $2}' | xargs -r -n 1 eselect bashcomp enable
         为所有用户开启自动完成
 
-            eselect bashcomp list | grep '\[' | grep -v * | awk '{print $2}' | xargs -n 1 eselect bashcomp enable --global
+            eselect bashcomp list | grep '\[' | grep -v * | awk '{print $2}' | xargs -r -n 1 eselect bashcomp enable --global
     * tmux设置和终端提示设置
         ~/.bashrc里增加
 
-            alias tmux='tmux -2'        //使用tmux+vim必须要这个
+            alias tmux='tmux -2'        #使用tmux+vim必须要这个
             PS1='\[\033[01;32m\][\u@\h\[\033[00m\] \[\033[01;34m\]\W]\[\033[00m\]\\$ '
     * 退出的时候保存history
         在~/.bash_logout增加
@@ -163,26 +174,26 @@
             cd /opt/
             cd /usr/local/bin
             cd /var/log
-            j bin   //就可以到之前cd过的/usr/local/bin
+            j bin   #就可以到之前cd过的/usr/local/bin
     * 设置~/.xintrc,参考[Display Power Management Signaling](https://wiki.archlinux.org/index.php/Display_Power_Management_Signaling_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87))
 
             #xset是图形下的设置，setterm是字符界面下的设置
-            xset -dpms  //禁止自动关闭显示器，比如休眠
-            xset s noblank  //关闭屏保的背景
-            xset s noexpose //关闭屏保
-            xset s 0    //关闭屏保，这个相当是把时间设置为无限
-            xset -b     //关闭终端响铃，图形模式下
+            xset -dpms  #禁止自动关闭显示器，比如休眠
+            xset s noblank  #关闭屏保的背景
+            xset s noexpose #关闭屏保
+            xset s 0    #关闭屏保，这个相当是把时间设置为无限
+            xset -b     #关闭终端响铃，图形模式下
             export XIM=fcitx
             export XMODIFIERS="@im=fcitx"
             export GTK_IM_MODULE=fcitx
             export QT_IM_MODULE=fcitx
             export XIM_PROGRAM=fcitx
 
-	    fcitx >/dev/null 2>&1 &
-	    guake >/dev/null 2>&1 &
-	    compton --config ~/.compton.sample.conf >/dev/null 2>&1 &
-        xautolock -time 1 -locker slock &   #1分钟没有动作就锁屏
-        numlockx &
+	        fcitx >/dev/null 2>&1 &
+    	    guake >/dev/null 2>&1 &
+	        compton --config ~/.compton.sample.conf >/dev/null 2>&1 &
+            xautolock -time 1 -locker slock &   #1分钟没有动作就锁屏
+            numlockx &
 * 声音
 
         emerge -av alsa-utils
@@ -192,23 +203,6 @@
         alsamixer   //方向键向上是加音量，ESC是退出，m是开关，尤其是第二列，要把MM变为00
         emerge -av volumeicon       #托盘上图表
         volumeicon &        #加入到.xinitrc
-* xterm设置
-    * 创建~/.Xresources，写入
-
-            ! xterm ----------------------------------------------------------------------
-            xterm*scrollBar: false
-            xterm*rightScrollBar: false
-            xterm*background: black
-            xterm*foreground: white
-            ! English font
-            xterm*faceName: DejaVu Sans Mono:antialias=True:pixelsize=14
-            ! Chinese font
-            ! xterm*faceNameDoublesize: WenQuanYi Micro Hei:pixelsize=14
-            xterm*faceNameDoublesize: WenQuanYi Micro Hei Mono:pixelsize=14
-            xterm*locale: zh_CN.UTF-8
-    * 写入到~/.xinitrc
-
-            [[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
 * 无线网卡，参考[Wifi](https://wiki.gentoo.org/wiki/Wifi)
 
         emerge -av sys-kernel/linux-firmware
@@ -261,13 +255,13 @@
 
             emerge -av awesome //建议最新版，稳定版和chromium的兼容性有问题
     * 设置
-        * 改成终端登录自动启动startx
+        * 改成终端登录自动启动startx，参考[X without Display Manager](https://wiki.gentoo.org/wiki/X_without_Display_Manager)
 
             在~/.bash_profile最后增加
 
                 tty=`tty`
-                #[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx      //archlinux里可以这样，但gentoo里无法成功，后来改成如下
-                #https://wiki.gentoo.org/wiki/X_without_Display_Manager
+                #[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx      
+                #archlinux里可以这样，但gentoo里无法成功，后来改成如下,注意官方文档里的写法也无法成功
                 [[ -z $DISPLAY && "$tty" = "/dev/tty1" ]] && exec startx
         * 在~/.xinitrc最后增加，特别强调，任何时候，一定要保持下面这个内容在最后
 
