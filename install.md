@@ -25,22 +25,22 @@
         parted -a optimal /dev/sda
         (parted) mklabel gpt
         (parted) print
-        (parted) rm 分区号码        //删除分区，如果不需要可以不做
+        (parted) rm 分区号码        #删除分区，如果不需要可以不做
         (parted) unit mib
-        (parted) mkpart primary 1 3     //固定为2M的bios启动分区
+        (parted) mkpart primary 1 3     #固定为2M的bios启动分区
         (parted) name 1 grub
         (parted) set 1 bios_grub on
-        (parted) mkpart primary 3 131       //boot分区
+        (parted) mkpart primary 3 131       #boot分区
         (parted) name 2 boot
         (parted) set 2 boot on	//UEFI
-        (parted) mkpart primary 131 643     //交换分区
+        (parted) mkpart primary 131 643     #交换分区
         (parted) name 3 swap
-        (parted) mkpart primary 643 -1      //简单起见，剩下的全部在/分区，实际中可以把home、var等分区独立出来
+        (parted) mkpart primary 643 -1      #简单起见，剩下的全部在/分区，实际中可以把home、var等分区独立出来
         (parted) name 4 rootfs
         (parted) quit
 * 格式化分区
         
-        mkfs.ext2 /dev/sda2 //UEFI是mkfs.vfat /dev/sda2
+        mkfs.ext2 /dev/sda2 #UEFI是mkfs.vfat /dev/sda2
         mkfs.ext4 /dev/sda4
         mkswap /dev/sda3
         swapon /dev/sda3
@@ -64,11 +64,11 @@
         cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c
     在/mnt/gentoo/etc/portage/make.conf里配置
 
-        #CFLAGS="-march=core2 -O2 -pipe"
         CFLAGS="-march=native -O2 -pipe"
         CXXFLAGS="${CFLAGS}"
-        MAKEOPTS="-j3"          //cpu核数+1=3
+        MAKEOPTS="-j3"          #cpu核数+1=3
 * 配置源
+
         #按空格选择
         mirrorselect -i -o >> /mnt/gentoo/etc/portage/make.conf
         mkdir -p /mnt/gentoo/etc/portage/repos.conf
@@ -94,8 +94,6 @@
 * 查看new，这个环节比较重要，我这里没有影响  
     通过eselect news list和eselect news read 编号 查看news,以下都是news里的一些信息  
     如果/和/usr在不同分区，内核必须使用initramfs  
-    //在package.use里加入下面这行，这样会自动安装32位类库，但会造成编译时间变长  
-    //\*/\* abi_x86_32  改成make.conf里的ABI_X86="32 64"
 
 * 选择合适的profile
 
@@ -119,21 +117,21 @@
     * 查看cpu支持的指令集
     
             emerge -1v app-portage/cpuid2cpuflags
-            cpuid2cpuflags        //记下执行结果，下一步用到
+            cpuid2cpuflags        #记下执行结果，下一步用到
     * 修改/etc/portage/make.conf，显卡配置参考[Xorg/Guide](https://wiki.gentoo.org/wiki/Xorg/Guide)
     
-            LINGUAS="zh_CN en"      //安装软件包的时候，如果有中文语言包，就顺便装上
-            L10N="zh-CN"            //安装thunderbird、libreoffice-l10n的时候，安装中文包
-            VIDEO_CARDS="intel i965"     //这是我台式机的配置，笔记本是radeon r600，virtualbox虚拟机里是virtualbox
+            LINGUAS="zh_CN en"      #安装软件包的时候，如果有中文语言包，就顺便装上
+            L10N="zh-CN"            #安装thunderbird、libreoffice-l10n的时候，安装中文包
+            VIDEO_CARDS="intel i965"     #请根据自己的显卡类型填入，virtualbox虚拟机里是virtualbox
             INPUT_DEVICES="evdev synaptics"     //synaptics是触摸板
             USE="python pulseaudio git subversion gnome-keyring bash-completion vim-syntax tk icu" #icu是安装chromium需要
-            CPU_FLAGS_X86="mmx mmxext sse sse2 sse3 sse4_1 ssse3"   //上一步看到的指令集
-            ABI_X86="32 64"     //安装32位和64位，如果存在循环依赖，可以先注释掉
+            CPU_FLAGS_X86="mmx mmxext sse sse2 sse3 sse4_1 ssse3"   #上一步看到的指令集
+            ABI_X86="32 64"     #安装32位和64位，如果存在循环依赖，可以先注释掉
 
 * 设置时区
     
         echo "Asia/Shanghai" > /etc/timezone
-        emerge --config sys-libs/timezone-data  //时间可能不对，查看下是否需要设置
+        emerge --config sys-libs/timezone-data  #时间可能不对，查看下是否需要设置
 * 设置字符集  
     * 在/etc/locale.gen里增加
 
@@ -147,7 +145,7 @@
         
             locale-gen
             eselect locale list
-            eselect locale set 10 //选择zh_CN.utf8
+            eselect locale set 10 #选择zh_CN.utf8
             . /etc/profile
     * 继续  
         在/etc/env.d/02locale里增加
@@ -165,20 +163,21 @@
 
         emerge -av gentoo-sources pciutils genkernel mcelog //iproute2已安装
         cd /usr/src/linux
-    //配置参考[Installing_the_sources](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation#Installing_the_sources)  
-    //配置参考[Gentoo_Kernel_Configuration_Guide](https://wiki.gentoo.org/wiki/Kernel/Gentoo_Kernel_Configuration_Guide)  
-    //ipv6配置参考[IPv6_router_guide](https://wiki.gentoo.org/wiki/IPv6_router_guide/)  
+    配置参考[Installing_the_sources](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation#Installing_the_sources)  
+    配置参考[Gentoo_Kernel_Configuration_Guide](https://wiki.gentoo.org/wiki/Kernel/Gentoo_Kernel_Configuration_Guide)  
+    显卡配置参考[Xorg/Guide](https://wiki.gentoo.org/wiki/Xorg/Guide)
+    无线网卡参考[Wifi](https://wiki.gentoo.org/wiki/Wifi)
+    ipv6配置参考[IPv6_router_guide](https://wiki.gentoo.org/wiki/IPv6_router_guide/)  
     照参考进行配置，CPU类型需要按照实际选择  
-    设置CONFIG_SND_HDA_PREALLOC_SIZE为2048 //HD-Audio Driver  
-    设置CONFIG_PPP_BSDCOMP     //ppp用到
+    设置CONFIG_SND_HDA_PREALLOC_SIZE为2048，HD-Audio Driver的配置
+    设置CONFIG_PPP_BSDCOMP，ppp用到
     
-        //emerge --ask radeon-ucode     //笔记本是AMD/ATI显卡，需要--->和下面冲突
-        emerge -av sys-kernel/linux-firmware   //这个是无线网卡的时候要装,参考https://wiki.gentoo.org/wiki/Wifi
-        genkernel --menuconfig all     //如果不设置，可以直接genkernel all
-* 网络设置，enp3s0是我的有线网卡名字
+        emerge -av sys-kernel/linux-firmware   #这个是无线网卡的驱动,参考https://wiki.gentoo.org/wiki/Wifi
+        genkernel --menuconfig all     #如果不设置，可以直接genkernel all
+* 网络设置，enp3s0是网卡名字，请替换为自己的网卡名字
     * 编辑/etc/conf.d/hostname
     
-            hostname="主机名"
+            hostname="home"
     * 编辑/etc/hosts，增加主机名到127.0.0.1后面
     * 安装netifrc
 
@@ -188,8 +187,7 @@
 
             config_enp3s0="192.168.1.173 netmask 255.255.255.0 brd 192.168.1.255"
             routes_enp3s0="default via 192.168.1.1"
-            #dns_servers_enp3s0="114.114.114.114 223.5.5.5 192.168.1.1"     //指定dns，无效
-            dns_servers="114.114.114.114 223.5.5.5 192.168.1.1"     //指定dns
+            dns_servers="114.114.114.114 223.5.5.5 192.168.1.1"
             config_enp3s0="dhcp"
         如果是多ip，第一行改成
 
@@ -220,8 +218,8 @@
         chmod o+rx /var/spool/cron
 * 安装引导，os-prober是多系统的时候有用
 
-	如果是UEFI，先执行  
-	echo GRUB_PLATFORMS="efi-64" >> /etc/portage/make.conf
+	    如果是UEFI，先执行  
+	    echo GRUB_PLATFORMS="efi-64" >> /etc/portage/make.conf
 
         emerge -av sys-boot/grub os-prober
     grub的默认配置在/etc/default/grub，比如可以把超时时间改成3秒  
