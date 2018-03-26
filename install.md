@@ -165,8 +165,8 @@
         cd /usr/src/linux
     配置参考[Installing_the_sources](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation#Installing_the_sources)  
     配置参考[Gentoo_Kernel_Configuration_Guide](https://wiki.gentoo.org/wiki/Kernel/Gentoo_Kernel_Configuration_Guide)  
-    显卡配置参考[Xorg/Guide](https://wiki.gentoo.org/wiki/Xorg/Guide)
-    无线网卡参考[Wifi](https://wiki.gentoo.org/wiki/Wifi)
+    显卡配置参考[Xorg/Guide](https://wiki.gentoo.org/wiki/Xorg/Guide)  
+    无线网卡参考[Wifi](https://wiki.gentoo.org/wiki/Wifi)  
     ipv6配置参考[IPv6_router_guide](https://wiki.gentoo.org/wiki/IPv6_router_guide/)  
     照参考进行配置，CPU类型需要按照实际选择  
     设置CONFIG_SND_HDA_PREALLOC_SIZE为2048，HD-Audio Driver的配置
