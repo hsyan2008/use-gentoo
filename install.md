@@ -3,7 +3,8 @@
 ## 强烈建议对照[官方文档](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation)参考
 
 * 从[gentoo官网](https://gentoo.org/downloads/)下载iso，我这里下载的是amd64下的Minimal Installation CD
-* 光盘启动
+* 如果要制作USB启动盘，可以使用[Rufus](http://rufus.akeo.ie/?locale=zh_CN)
+* 光盘/U盘启动
 * 网络链接
 
         ping -c 1 www.baidu.com
