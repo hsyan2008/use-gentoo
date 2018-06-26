@@ -8,11 +8,37 @@
 * 网络链接
 
         ping -c 1 www.baidu.com
-    如果能ping通，直接下一步，否则通过ifconfig查看网卡名字，这里是enp3s0，然后执行
+    如果能ping通，直接进行安装，否则通过ifconfig查看网卡名字
+        * 如果是有线网卡，网卡名称是enp3s0，执行
     
-        ifconfig enp3s0 192.168.1.168 broadcast 192.168.1.255 netmask 255.255.255.0
-        ip route add via 192.168.1.1 dev enp3s0
-        echo "nameserver 114.114.114.114" > /etc/resolv.conf
+                ifconfig enp3s0 192.168.1.168 broadcast 192.168.1.255 netmask 255.255.255.0
+                ip route add via 192.168.1.1 dev enp3s0
+                echo "nameserver 114.114.114.114" > /etc/resolv.conf  
+        * 如果是无线网卡，网卡名称是wlp3s0
+            * 加密方式是wep
+                    
+                    iwlist wlp3s0 scanning                                      #查看附近的ESSID
+                    iw dev wlp3s0 info
+                    iw dev wlp3s0 link
+                    ip link set dev wlp3s0 up
+                    iw dev wlp3s0 connect -w ESSID                               #没有密码
+                    iw dev wlp3s0 connect -w ESSID key 0:d:1234123412341234abc   #密码是16进制
+                    iw dev wlp3s0 connect -w ESSID key 0:some-password           #密码是ASCII格式  
+                    dhcpcd wlp3s0                                                #获取ip
+                    iwconfig                                                     #查看是否连接指定的SSID
+            * 加密方式是wpa/wpa2，这个方法也支持wep加密  
+                在/etc/wpasupplicant/wpa_supplicant.conf里增加
+                        
+                        network {
+                            ssid="ESSID"
+                            psk="密码"
+                            priority=1
+                        }  
+                执行
+                        
+                        wpa_supplicant -i wlp3s0 -c /etc/wpa_supplicant/wpa_supplicant.conf  #运行wpa_supplicant
+                        dhcpcd wlp3s0                                                        #获取ip
+                        iwconfig                                                             #查看是否连接指定的SSID
 * 我这里为了安装方便，通过ssh安装
     * 启动ssh服务
     
