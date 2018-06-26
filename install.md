@@ -8,7 +8,7 @@
 * 网络链接
 
         ping -c 1 www.baidu.com
-    如果能ping通，直接进行安装，否则通过ifconfig查看网卡名字
+    如果能ping通，直接进行安装，否则通过ifconfig查看网卡名字  
         * 如果是有线网卡，网卡名称是enp3s0，执行
     
                 ifconfig enp3s0 192.168.1.168 broadcast 192.168.1.255 netmask 255.255.255.0
