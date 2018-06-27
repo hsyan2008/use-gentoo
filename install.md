@@ -151,7 +151,7 @@
             LINGUAS="zh_CN en"      #安装软件包的时候，如果有中文语言包，就顺便装上
             L10N="zh-CN"            #安装thunderbird、libreoffice-l10n的时候，安装中文包
             VIDEO_CARDS="intel i965"     #请根据自己的显卡类型填入，virtualbox虚拟机里是virtualbox
-            INPUT_DEVICES="evdev synaptics"     //synaptics是触摸板
+            INPUT_DEVICES="libinput keyboard mouse synaptics"     //synaptics是触摸板，libinput已经包含evdev
             USE="python pulseaudio git subversion gnome-keyring bash-completion vim-syntax tk icu" #icu是安装chromium需要
             CPU_FLAGS_X86="mmx mmxext sse sse2 sse3 sse4_1 ssse3"   #上一步看到的指令集
             ABI_X86="32 64"     #安装32位和64位，如果存在循环依赖，可以先注释掉
