@@ -1,7 +1,7 @@
 # vim+xdebug调试php
 * 安装
     
-        emerge -av xdebug  //这是扩展，自动安装xdebug-client了
+        emerge -av xdebug  #这是扩展，自动安装xdebug-client了
 
 * 配置扩展
     打开php的扩展配置xdebug.ini，修改如下配置

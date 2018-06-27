@@ -30,7 +30,7 @@
         winetricks
 * 运行qq 
     
-    //wine "~/.wine/drive_c/Program Files/Tencent/QQ/Bin/QQ.exe"  
+    wine "~/.wine/drive_c/Program Files/Tencent/QQ/Bin/QQ.exe"  
     改成如下，上面的方式在ps里显示路径比较怪异，猜测上面也是这个问题  
         export WINEPREFIX=~/.wine
         cd "~/.wine/drive_c/Program Files/Tencent/QQ/Bin/"

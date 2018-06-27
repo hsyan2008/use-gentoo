@@ -35,15 +35,15 @@
     在make.conf里增加,增加后
 
         FEATURES="ccache"
-        CCACHE_SIZE="2G"     //设置大点
+        CCACHE_SIZE="2G"     #设置大点
         CCACHE_DIR="/var/tmp/ccache"
     在root用户和普通用户的~/.bash_profile里增加
 
         PATH="/usr/lib/ccache/bin:/opt/bin:${PATH}"
     ccache的常用命令如下
 
-        ccache -s       //查看状态
-        ccache -C       //清理缓存
+        ccache -s       #查看状态
+        ccache -C       #清理缓存
 
 * 安装x(如果想用图形界面)
     参考[Xorg/Guide](https://wiki.gentoo.org/wiki/Xorg/Guide)、[AMD/ATI显卡](https://wiki.gentoo.org/wiki/Radeon)、[Intel显卡](https://wiki.gentoo.org/wiki/Intel#Kernel)、
@@ -51,16 +51,16 @@
 
         emerge -av eix sudo
         emerge -av x11-base/xorg-drivers	//显卡驱动
-        //emerge -av xorg-server      //x服务端，没有这个就没有图形界面
-        emerge -av media-libs/libtxc_dxtn   //为mesa开启完整的S3TC支持
+        #emerge -av xorg-server      #x服务端，没有这个就没有图形界面
+        emerge -av media-libs/libtxc_dxtn   #为mesa开启完整的S3TC支持
 
 * 安装第三方源
 
-        emerge -av app-portage/layman //安装仓库管理工具,类似管理archlinux的core、extra、aur等
+        emerge -av app-portage/layman #安装仓库管理工具,类似管理archlinux的core、extra、aur等
 	    echo "source /var/lib/layman/make.conf" >> /etc/portage/make.conf
-    	layman -L     //列出所有第三方源
-    	layman -a gentoo-zh //增加源，如果前面是红色星星，表示没有装git，其他也类似，可以为layman添加use
-    	layman -S     //更新
+    	layman -L     #列出所有第三方源
+    	layman -a gentoo-zh #增加源，如果前面是红色星星，表示没有装git，其他也类似，可以为layman添加use
+    	layman -S     #更新
     	eix-update  
     如果不让该layman不参与update，可以在/etc/portage/package.mask里加入  
         
@@ -76,56 +76,56 @@
     以后就可以执行chrome来启动，这样可以把缓存写到内存，而不是硬盘，提高性能
 * 字体
 
-        emerge -av wqy-bitmapfont wqy-microhei wqy-unibit wqy-zenhei    //文泉驿字体，根据需要选择，一般编程用wqy-microhei
-        emerge -av media-fonts/inconsolata      //推荐字体，建议设置成大小14
-        eselect fontconfig list     //字体列表
-        eselect fontconfig enable n     //字体设置，n想要启用的字体序号
+        emerge -av wqy-bitmapfont wqy-microhei wqy-unibit wqy-zenhei    #文泉驿字体，根据需要选择，一般编程用wqy-microhei
+        emerge -av media-fonts/inconsolata      #推荐字体，建议设置成大小14
+        eselect fontconfig list     #字体列表
+        eselect fontconfig enable n     #字体设置，n想要启用的字体序号
 
 * 安装常用软件
 
-        emerge -av sys-apps/usb_modeswitch net-misc/bridge-utils     //自动挂载，高级网络配置(virtualbox)
-        emerge -av dev-vcs/git subversion mercurial bzr      //版本管理
-        emerge -av guake tilda(可能需要安装vte的特定版本)   //下拉式终端，支持透明，选择一个即可
-        emerge -av terminator       //分屏式终端
+        emerge -av sys-apps/usb_modeswitch net-misc/bridge-utils     #自动挂载，高级网络配置(virtualbox)
+        emerge -av dev-vcs/git subversion mercurial bzr      #版本管理
+        emerge -av guake tilda(可能需要安装vte的特定版本)   #下拉式终端，支持透明，选择一个即可
+        emerge -av terminator       #分屏式终端
         emerge -av arandr 	//分辨率和屏幕设置，xrandr在安装X的时候一般已经自动装上
-        emerge -av dmenu    //快速启动器，支持模糊搜索
-        emerge -av gnome-icon-theme xcursor-themes     //系统图标和鼠标主题
-        emerge -av slock xautolock scrot aria2 numlockx      //分别是锁屏、截图(linux自带的import命令也可以截图)、下载、小键盘
-        emerge -av adobe-flash gpicview nautilus  //分别是falsh、图片、文件浏览
-        emerge -av fcitx fcitx-configtool fcitx-sunpinyin   //输入法，USE需要加上gtk2 gtk3，带剪切板管理
-        emerge -av fcitx-table-extra        //五笔输入法，需要在附加组件里勾选“码表”
-        emerge -av gentoo-bashcomp bash-completion      //命令行自动完成
-        emerge -av pptpclient rp-pppoe      //pptp vpn pppoe
-        emerge -av compton      //透明
-        emerge -av app-admin/keepassx       //密码管理
-        emerge -av autojump     //快速cd
-        emerge -av gentoolkit //gentoo的管理脚本，如equery
-        emerge -av bind-tools     //dig、nslookup、host、nsupdate等工具
-        emerge -av traceroute //查看ip路由
-        emerge -av netkit-telnetd     //telnet
-        emerge -av file-roller rar     //压缩包管理
-        emerge -av cdrtools     //命令行刻录工具
+        emerge -av dmenu    #快速启动器，支持模糊搜索
+        emerge -av gnome-icon-theme xcursor-themes     #系统图标和鼠标主题
+        emerge -av slock xautolock scrot aria2 numlockx      #分别是锁屏、截图(linux自带的import命令也可以截图)、下载、小键盘
+        emerge -av adobe-flash gpicview nautilus  #分别是falsh、图片、文件浏览
+        emerge -av fcitx fcitx-configtool fcitx-sunpinyin   #输入法，USE需要加上gtk2 gtk3，带剪切板管理
+        emerge -av fcitx-table-extra        #五笔输入法，需要在附加组件里勾选“码表”
+        emerge -av gentoo-bashcomp bash-completion      #命令行自动完成
+        emerge -av pptpclient rp-pppoe      #pptp vpn pppoe
+        emerge -av compton      #透明
+        emerge -av app-admin/keepassx       #密码管理
+        emerge -av autojump     #快速cd
+        emerge -av gentoolkit #gentoo的管理脚本，如equery
+        emerge -av bind-tools     #dig、nslookup、host、nsupdate等工具
+        emerge -av traceroute #查看ip路由
+        emerge -av netkit-telnetd     #telnet
+        emerge -av file-roller rar     #压缩包管理
+        emerge -av cdrtools     #命令行刻录工具
         emerge -av app-office/libreoffice
         emerge -av tmux tmux-mem-cpu-load app-text/tree expect
         emerge -av sublime-text
-        emerge -av wireshark    //网络嗅探，安装后执行gpasswd -a $USER wireshark;newgrp wireshark
-        emerge -av genlop   //统计各个软件的安装耗时，如genlop -t firefox
-        emerge -av xchm   //chm文件阅读
-        emerge -av apache-tools   //如果不想用apache，但想用ab的话，安装这个，也可以使用wrk来压测，wrk -d 10s url
-        emerge -av veracrypt    //truecrypt新版
-        emerge -av aliedit      //支付宝控件，需要安装gentoo-zh的layman
-        emerge -av privoxy      //ssh隧道是socket5，可以通过这个工具转成http和https
-        emerge -av proxychains  //在终端下使用socket5代理
-        emerge -av phddns       //花生壳，内网机器需要做端口映射
-        emerge -av filezilla    //ftp客户端
-        emerge -av cmus    //终端下音乐播放器
-        emerge -av aircrack-ng    //破解wep密码，教程见[破解WIFI无线网络的WEP密钥](https://linux.cn/article-2382-1.html)
-        emerge -av netcat       //网络工具nc
-        emerge -av xprop    //应该已经被其他软件依赖安装了，使用方法是在命令行执行命令，然后鼠标点击窗口内，就可以看到class
-        emerge -av brasero  //图形化刻录软件，命令行可以用cdrecord
-        emerge -av transmission     //bt下载工具
-        emerge -av kodi         //xbmc，影视中心
-        emerge -av ntfs3g       //ntfs格式的移动硬盘挂载是只读，安装这个才可以读写
+        emerge -av wireshark    #网络嗅探，安装后执行gpasswd -a $USER wireshark;newgrp wireshark
+        emerge -av genlop   #统计各个软件的安装耗时，如genlop -t firefox
+        emerge -av xchm   #chm文件阅读
+        emerge -av apache-tools   #如果不想用apache，但想用ab的话，安装这个，也可以使用wrk来压测，wrk -d 10s url
+        emerge -av veracrypt    #truecrypt新版
+        emerge -av aliedit      #支付宝控件，需要安装gentoo-zh的layman
+        emerge -av privoxy      #ssh隧道是socket5，可以通过这个工具转成http和https
+        emerge -av proxychains  #在终端下使用socket5代理
+        emerge -av phddns       #花生壳，内网机器需要做端口映射
+        emerge -av filezilla    #ftp客户端
+        emerge -av cmus    #终端下音乐播放器
+        emerge -av aircrack-ng    #破解wep密码，教程见[破解WIFI无线网络的WEP密钥](https://linux.cn/article-2382-1.html)
+        emerge -av netcat       #网络工具nc
+        emerge -av xprop    #应该已经被其他软件依赖安装了，使用方法是在命令行执行命令，然后鼠标点击窗口内，就可以看到class
+        emerge -av brasero  #图形化刻录软件，命令行可以用cdrecord
+        emerge -av transmission     #bt下载工具
+        emerge -av kodi         #xbmc，影视中心
+        emerge -av ntfs3g       #ntfs格式的移动硬盘挂载是只读，安装这个才可以读写
 
 * 设置
     * 如果是virtualbox里安装的gentoo
@@ -137,8 +137,8 @@
             rc-update add lvm boot
     * 用户组设置和权限设置
 
-            gpasswd -a $USER plugdev     //USB
-            gpasswd -a $USER uucp          //蓝牙、ppp、rfcomm
+            gpasswd -a $USER plugdev     #USB
+            gpasswd -a $USER uucp          #蓝牙、ppp、rfcomm
 
             chown root:mail /var/spool/mail/
             chmod 03775 /var/spool/mail/
@@ -164,9 +164,9 @@
     * 透明  
         配置文件[compton](https://github.com/chjj/compton/blob/master/compton.sample.conf)，可以根据需要更改，如
 
-            fading = false  //表示是否开启动画
-            inactive-opacity = 0.8    //表示窗口失去焦点的透明度
-            active-opacity  = 0.8      //表示窗口得到焦点的透明度
+            fading = false  #表示是否开启动画
+            inactive-opacity = 0.8    #表示窗口失去焦点的透明度
+            active-opacity  = 0.8      #表示窗口得到焦点的透明度
     * 快速cd
         在~/.bashrc里加入
 
@@ -201,22 +201,22 @@
         rc-update add alsasound boot
         getfacl /dev/snd/controlC0 | grep $USER
         /etc/init.d/alsasound start
-        alsamixer   //方向键向上是加音量，ESC是退出，m是开关，尤其是第二列，要把MM变为00
+        alsamixer   #方向键向上是加音量，ESC是退出，m是开关，尤其是第二列，要把MM变为00
         emerge -av volumeicon       #托盘上图表
         volumeicon &        #加入到.xinitrc
 * 无线网卡，参考[Wifi](https://wiki.gentoo.org/wiki/Wifi)
 
         emerge -av sys-kernel/linux-firmware
         emerge -av wireless-tools     
-        iwconfig wlan0 txpower on     //打开无线网卡电源
-        iwlist wlan0 scan          //列出周围无线网络
+        iwconfig wlan0 txpower on     #打开无线网卡电源
+        iwlist wlan0 scan          #列出周围无线网络
     iwconfig只支持wep,不支持wpa/wpa2，所以本案例没用iwconfig，iwconfig可以参考[Preparing_for_wireless_access](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation#Preparing_for_wireless_access)  
     wpa2加密采用wpa_supplicant工具，参考  
     [Wireless_tools](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Networking#Wireless_tools)  
     [Wpa_supplicant](https://wiki.gentoo.org/wiki/Wpa_supplicant)  
     [在命令行中管理 Wifi 连接](https://linux.cn/article-4015-1.html)
 
-        emerge -av wpa_supplicant     //不要加入自动运行，因为dhcpd会自动读取配置来启动的
+        emerge -av wpa_supplicant     #不要加入自动运行，因为dhcpd会自动读取配置来启动的
 
     编辑/etc/wpa_supplicant/wpa_supplicant.conf，输入
 
@@ -228,8 +228,8 @@
         update_config=1
         #多个就写多个network
         network={
-                ssid="SSID"   //WIFI名字
-                psk="PASS"      //WIFI密码
+                ssid="SSID"   #WIFI名字
+                psk="PASS"      #WIFI密码
                 scan_ssid=1
                 proto=RSN
                 key_mgmt=WPA-PSK
@@ -248,13 +248,13 @@
     然后执行
 
         ln -s /etc/init.d/net.lo /etc/init.d/net.wlp3s0
-        /etc/init.d/net.wlp3s0 restart     //这样就算无线重启，也会自动连接
+        /etc/init.d/net.wlp3s0 restart     #这样就算无线重启，也会自动连接
         rc-update add net.wlp3s0 default
 
 * startx+awesome
     * 安装
 
-            emerge -av awesome //建议最新版，稳定版和chromium的兼容性有问题
+            emerge -av awesome #建议最新版，稳定版和chromium的兼容性有问题
     * 设置
         * 改成终端登录自动启动startx，参考[X without Display Manager](https://wiki.gentoo.org/wiki/X_without_Display_Manager)
 

@@ -151,7 +151,7 @@
             LINGUAS="zh_CN en"      #安装软件包的时候，如果有中文语言包，就顺便装上
             L10N="zh-CN"            #安装thunderbird、libreoffice-l10n的时候，安装中文包
             VIDEO_CARDS="intel i965"     #请根据自己的显卡类型填入，virtualbox虚拟机里是virtualbox
-            INPUT_DEVICES="libinput keyboard mouse synaptics"     //synaptics是触摸板，libinput已经包含evdev
+            INPUT_DEVICES="libinput keyboard mouse synaptics"     #synaptics是触摸板，libinput已经包含evdev
             USE="python pulseaudio git subversion gnome-keyring bash-completion vim-syntax tk icu" #icu是安装chromium需要
             CPU_FLAGS_X86="mmx mmxext sse sse2 sse3 sse4_1 ssse3"   #上一步看到的指令集
             ABI_X86="32 64"     #安装32位和64位，如果存在循环依赖，可以先注释掉
@@ -189,7 +189,7 @@
         /dev/cdrom    /mnt/cdrom   auto     noauto,user          0 0
 * 安装内核
 
-        emerge -av gentoo-sources pciutils genkernel mcelog //iproute2已安装
+        emerge -av gentoo-sources pciutils genkernel mcelog #iproute2已安装
         cd /usr/src/linux
     配置参考[Installing_the_sources](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation#Installing_the_sources)  
     配置参考[Gentoo_Kernel_Configuration_Guide](https://wiki.gentoo.org/wiki/Kernel/Gentoo_Kernel_Configuration_Guide)  

@@ -30,16 +30,16 @@
 
                 cp .config .config.bak
                 genkernel --kernel-config=.config.bak --menuconfig all
-                emerge --ask @module-rebuild    //virtualbox需要，最好每次都运行下，重启后也执行
+                emerge --ask @module-rebuild    #virtualbox需要，最好每次都运行下，重启后也执行
         * 步骤二、  
             参考[GRUB2](https://wiki.gentoo.org/wiki/GRUB2)
         
-                grub-mkconfig -o /boot/grub/grub.cfg //注意新版grub的命令是grub-mkconfig
+                grub-mkconfig -o /boot/grub/grub.cfg #注意新版grub的命令是grub-mkconfig
         * 步骤四、  
             参考[Kernel/Removal](https://wiki.gentoo.org/wiki/Kernel/Removal)
             
                 emerge --ask --depclean gentoo-sources
-                eclean-kernel -n 3      //保留三个最新的内核
+                eclean-kernel -n 3      #保留三个最新的内核
                 rm -r /usr/src/linux-3.X.Y
                 rm -r /lib/modules/3.X.Y
                 rm /boot/kernel-3.X.Y
@@ -49,8 +49,8 @@
         * 步骤五、  
             如果重启后virtualbox无法启动，执行下面的命令
 
-                emerge --ask @module-rebuild     //可以不执行
-                modprobe vboxdrv     //解决提示 /etc/init.d/vboxdrv setup
-                modprobe vboxnetflt     //解决提示 Failed to open/create the internal network
+                emerge --ask @module-rebuild     #可以不执行
+                modprobe vboxdrv     #解决提示 /etc/init.d/vboxdrv setup
+                modprobe vboxnetflt     #解决提示 Failed to open/create the internal network
                 modprobe vboxnetadp 
                 modprobe vboxpci

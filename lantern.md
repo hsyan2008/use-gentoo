@@ -4,7 +4,7 @@
         emerge -av net-proxy/lantern-bin
 * 启动
 
-        lantern -headless  //加-headless不会弹出浏览器，时灵时不灵，如果有人知道，请告诉我，谢谢
+        lantern -headless  #加-headless不会弹出浏览器，时灵时不灵，如果有人知道，请告诉我，谢谢
     通过netstat -nlutp 可以看到lantern监听8787和16823端口，监听的地址是127.0.0.1
 * 局域网共享  
     新版lantern默认监听127.0.0.1:8787，无法修改，但可以执行如下命令
