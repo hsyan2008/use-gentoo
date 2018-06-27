@@ -23,7 +23,7 @@
         HISTCONTROL=erasedups       #所有的重复只出现一次，和上一条冲突，选择一个即可
         HISTSIZE=10000
         HISTFILESIZE=10000
-* 更新的源配置，如果安装的时候已操作，请跳过 
+* 更新的源配置，如果安装的时候已操作，请跳过  
     不在make.conf了，在/etc/portage/repos.conf/，见[Project:Portage/Sync](https://wiki.gentoo.org/wiki/Project:Portage/Sync)
 
         mkdir -p /etc/portage/repos.conf
@@ -46,7 +46,7 @@
         ccache -C       //清理缓存
 
 * 安装x(如果想用图形界面)
-    参考[Xorg/Configuration](https://wiki.gentoo.org/wiki/Xorg/Configuration)、[AMD/ATI显卡](https://wiki.gentoo.org/wiki/Radeon)、[Intel显卡](https://wiki.gentoo.org/wiki/Intel#Kernel)
+    参考[Xorg/Guide](https://wiki.gentoo.org/wiki/Xorg/Guide)、[AMD/ATI显卡](https://wiki.gentoo.org/wiki/Radeon)、[Intel显卡](https://wiki.gentoo.org/wiki/Intel#Kernel)、
     [Virtualbox虚拟机](https://wiki.gentoo.org/wiki/VirtualBox#Windows_guests)
 
         emerge -av eix sudo
