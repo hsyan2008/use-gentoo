@@ -149,7 +149,7 @@
     * 修改/etc/portage/make.conf，显卡配置参考[Xorg/Guide](https://wiki.gentoo.org/wiki/Xorg/Guide)
     
             LINGUAS="zh_CN en"      #安装软件包的时候，如果有中文语言包，就顺便装上
-            L10N="zh-CN"            #安装thunderbird、libreoffice-l10n的时候，安装中文包
+            L10N="zh-CN"            #安装thunderbird(bin版本中文显示有问题)、libreoffice-l10n的时候，安装中文包
             VIDEO_CARDS="intel i965"     #请根据自己的显卡类型填入，virtualbox虚拟机里是virtualbox
             INPUT_DEVICES="libinput keyboard mouse synaptics"     #synaptics是触摸板，libinput已经包含evdev
             USE="python pulseaudio git subversion gnome-keyring bash-completion vim-syntax tk icu" #icu是安装chromium需要
