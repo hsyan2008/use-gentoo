@@ -107,7 +107,7 @@
         emerge -av cdrtools     #命令行刻录工具
         emerge -av app-office/libreoffice
         emerge -av tmux tmux-mem-cpu-load app-text/tree expect
-        emerge -av sublime-text
+        emerge -av sublime-text    #注意fcitx的use必须要有gtk2 gtk3，否则无法输入
         emerge -av wireshark    #网络嗅探，安装后执行gpasswd -a $USER wireshark;newgrp wireshark
         emerge -av genlop   #统计各个软件的安装耗时，如genlop -t firefox
         emerge -av xchm   #chm文件阅读
