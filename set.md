@@ -126,6 +126,7 @@
         emerge -av transmission     #bt下载工具
         emerge -av kodi         #xbmc，影视中心
         emerge -av ntfs3g       #ntfs格式的移动硬盘挂载是只读，安装这个才可以读写
+		emerge -av app-emulation/virtualbox-extpack-oracle app-emulation/virtualbox-additions    #virtualbox虚拟机
 
 * 设置
     * 如果是virtualbox里安装的gentoo

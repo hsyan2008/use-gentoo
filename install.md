@@ -120,7 +120,7 @@
 * 拷贝DNS信息
 
         cp -L /etc/resolv.conf /mnt/gentoo/etc/
-* chroot(注意，不装systemd)
+* chroot
         
         mount -t proc proc /mnt/gentoo/proc
         mount --rbind /sys /mnt/gentoo/sys
@@ -158,19 +158,19 @@
         eselect profile set default/linux/amd64/17.0/desktop/gnome
 
         #如果是systemd
-        #参考https://wiki.gentoo.org/wiki/Systemd
+        #参考 https://wiki.gentoo.org/wiki/Systemd
         eselect profile set 25
         或
         eselect profile set default/linux/amd64/17.0/systemd
 
         #如果是desktop+systemd
-        #参考https://wiki.gentoo.org/wiki/Systemd/Installing_Gnome3_from_scratch
+        #参考 https://wiki.gentoo.org/wiki/Systemd/Installing_Gnome3_from_scratch
         eselect profile set 18
         或
         eselect profile set default/linux/amd64/17.0/desktop/gnome/systemd
 * 更新@world
 
-        emerge --ask --update --deep --newuse @world
+        emerge -av -uDN @world
 * 我习惯用vim
 
         emerge -av vim
@@ -232,7 +232,7 @@
         /dev/cdrom    /mnt/cdrom   auto     noauto,user          0 0
 * 安装内核和常用工具，注意，systemd下是genkernel-next
 
-        emerge -av gentoo-sources pciutils genkernel mcelog app-portage/eix #iproute2已安装
+        emerge -av gentoo-sources pciutils genkernel app-portage/eix #iproute2已安装
         cd /usr/src/linux
         #如果使用systemd
         ln -sf /proc/self/mounts /etc/mtab
