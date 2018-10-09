@@ -12,6 +12,8 @@
 
         #方法一
         emerge -av media-fonts/powerline-symbols
+        eselect fontconfig enable 10-powerline-symbols.conf
+        fc-cache -vf
         #方法二
         git clone https://github.com/powerline/fonts
         cd fonts;./install.sh
