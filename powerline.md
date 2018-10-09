@@ -10,6 +10,9 @@
         pip install git+git://github.com/Lokaltog/powerline
 * 安装powerline字体
 
+        #方法一
+        emerge -av media-fonts/powerline-symbols
+        #方法二
         git clone https://github.com/powerline/fonts
         cd fonts;./install.sh
         cp fontconfig/50-enable-terminess-powerline.conf ~/.config/fontconfig/conf.d/
