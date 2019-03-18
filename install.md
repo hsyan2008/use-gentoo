@@ -56,7 +56,7 @@
             parted -a optimal /dev/sda      #-a 优化分区对齐
             (parted) mklabel gpt            #设置GPT分区格式
             (parted) unit mib
-            (parted) mkpart primary 1 3     #固定为2M的bios启动分区，GPT和GRUB2一起使用时必须要有轧钢
+            (parted) mkpart primary 1 3     #固定为2M的bios启动分区，GPT和GRUB2一起使用时必须要有这个,UEFI下不需要
             (parted) name 1 grub
             (parted) set 1 bios_grub on
             (parted) mkpart primary 3 131       #boot分区
@@ -68,6 +68,7 @@
             (parted) name 4 rootfs
             (parted) quit
     * 非交互式操作
+
             yes | parted -a optimal /dev/sda mklabel gpt            #设置GPT分区格式
             parted -a optimal /dev/sda unit mib
             parted -a optimal /dev/sda mkpart primary 1 3     #固定为2M的bios启动分区，GPT和GRUB2一起使用时必须要有轧钢
@@ -193,7 +194,7 @@
             L10N="zh-CN"            #安装thunderbird(bin版本中文显示有问题)、libreoffice-l10n的时候，安装中文包
             VIDEO_CARDS="intel i965"     #请根据自己的显卡类型填入，virtualbox虚拟机里是virtualbox
             INPUT_DEVICES="libinput evdev keyboard mouse synaptics"     #synaptics是触摸板，libinput已经包含evdev
-            USE="python pulseaudio git subversion gnome-keyring bash-completion vim-syntax tk icu" #icu是安装chromium需要
+            USE="python pulseaudio git subversion mercurial sync-plugin-portage gnome-keyring bash-completion vim-syntax tk icu" #icu是安装chromium需要
             CPU_FLAGS_X86="mmx mmxext sse sse2 sse3 sse4_1 ssse3"   #上一步看到的指令集
             ABI_X86="32 64"     #安装32位和64位，如果存在循环依赖，可以先注释掉
             #UEFI
