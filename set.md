@@ -23,12 +23,6 @@
         HISTCONTROL=erasedups       #所有的重复只出现一次，和上一条冲突，选择一个即可
         HISTSIZE=10000
         HISTFILESIZE=10000
-* 更新的源配置，如果安装的时候已操作，请跳过  
-    不在make.conf了，在/etc/portage/repos.conf/，见[Project:Portage/Sync](https://wiki.gentoo.org/wiki/Project:Portage/Sync)
-
-        mkdir -p /etc/portage/repos.conf
-        cp /usr/share/portage/config/repos.conf /etc/portage/repos.conf/gentoo.conf
-
 * 设置编译缓存
 
         emerge -av dev-util/ccache
@@ -49,9 +43,7 @@
     参考[Xorg/Guide](https://wiki.gentoo.org/wiki/Xorg/Guide)、[AMD/ATI显卡](https://wiki.gentoo.org/wiki/Radeon)、[Intel显卡](https://wiki.gentoo.org/wiki/Intel#Kernel)、
     [Virtualbox虚拟机](https://wiki.gentoo.org/wiki/VirtualBox#Windows_guests)
 
-        emerge -av eix sudo
-        emerge -av x11-base/xorg-drivers	//显卡驱动
-        #emerge -av xorg-server      #x服务端，没有这个就没有图形界面
+        emerge -av x11-base/xorg-x11	//xorg-server+xorg-driver+显卡驱动
         emerge -av media-libs/libtxc_dxtn   #为mesa开启完整的S3TC支持
 
 * 安装第三方源

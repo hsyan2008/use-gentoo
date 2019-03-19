@@ -67,19 +67,19 @@
             (parted) mkpart primary 643 -1      #简单起见，剩下的全部在/分区，实际中可以把home、var等分区独立出来
             (parted) name 4 rootfs
             (parted) quit
-    * 非交互式操作
+    * 非交互式操作，注释见上方
 
-            yes | parted -a optimal /dev/sda mklabel gpt            #设置GPT分区格式
+            yes | parted -a optimal /dev/sda mklabel gpt
             parted -a optimal /dev/sda unit mib
-            parted -a optimal /dev/sda mkpart primary 1 3     #固定为2M的bios启动分区，GPT和GRUB2一起使用时必须要有轧钢
+            parted -a optimal /dev/sda mkpart primary 1 3
             parted -a optimal /dev/sda name 1 grub
             parted -a optimal /dev/sda set 1 bios_grub on
-            parted -a optimal /dev/sda mkpart primary 3 131       #boot分区
+            parted -a optimal /dev/sda mkpart primary 3 131
             parted -a optimal /dev/sda name 2 boot
-            parted -a optimal /dev/sda set 2 boot on              #当使用UEFI接口来引导系统时（取代BIOS），要将引导分区标识为EFI系统分区。当“boot”选项在这个分区被设置时，Parted可以自动完成此事。
-            parted -a optimal /dev/sda mkpart primary 131 643     #交换分区
+            parted -a optimal /dev/sda set 2 boot on
+            parted -a optimal /dev/sda mkpart primary 131 643
             parted -a optimal /dev/sda name 3 swap
-            parted -a optimal -- /dev/sda mkpart primary 643 -1      #简单起见，剩下的全部在/分区，实际中可以把home、var等分区独立出来
+            parted -a optimal -- /dev/sda mkpart primary 643 -1
             parted -a optimal /dev/sda name 4 rootfs
             parted -a optimal /dev/sda p
 * 格式化分区
@@ -198,7 +198,8 @@
             CPU_FLAGS_X86="mmx mmxext sse sse2 sse3 sse4_1 ssse3"   #上一步看到的指令集
             ABI_X86="32 64"     #安装32位和64位，如果存在循环依赖，可以先注释掉
             #UEFI
-            GRUB_PLATFORMS="efi-32 efi-64 pc"
+            #GRUB_PLATFORMS="efi-32 efi-64 pc"
+            GRUB_PLATFORMS="efi-64"
 
 * 设置时区
     
@@ -233,7 +234,7 @@
         /dev/cdrom    /mnt/cdrom   auto     noauto,user          0 0
 * 安装内核和常用工具，注意，systemd下是genkernel-next
 
-        emerge -av gentoo-sources pciutils genkernel app-portage/eix #iproute2已安装
+        emerge -av gentoo-sources pciutils genkernel app-portage/eix mcelog #iproute2已安装
         cd /usr/src/linux
         #如果使用systemd
         ln -sf /proc/self/mounts /etc/mtab
@@ -289,7 +290,7 @@
         rc-update add cronie default
         rc-update add sshd default
         rc-update add dhcpcd default
-    这里普通用户用crontab -l报'/var/spool/cron/crontabs' is not a directory, bailing out.
+    这里普通用户用crontab -l报'/var/spool/cron/crontabs' is not a directory, bailing out.（现在已经不需要了）
         
         chmod o+rx /var/spool/cron
 * 安装引导，os-prober是多系统的时候有用
