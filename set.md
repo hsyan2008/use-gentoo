@@ -263,6 +263,7 @@
 * 更新系统
 
         emaint sync -a
+        #emerge -av -uDNn --with-bdeps=y @world
         emerge -av --update --newuse --deep --with-bdeps=y @world
 
 * 大功告成，重启

@@ -234,7 +234,7 @@
         /dev/cdrom    /mnt/cdrom   auto     noauto,user          0 0
 * 安装内核和常用工具，注意，systemd下是genkernel-next
 
-        emerge -av gentoo-sources pciutils genkernel app-portage/eix mcelog #iproute2已安装
+        emerge -av gentoo-sources pciutils genkernel app-portage/eix mcelog gentoolkit #iproute2已安装
         cd /usr/src/linux
         #如果使用systemd
         ln -sf /proc/self/mounts /etc/mtab
@@ -242,6 +242,10 @@
     配置参考[Gentoo_Kernel_Configuration_Guide](https://wiki.gentoo.org/wiki/Kernel/Gentoo_Kernel_Configuration_Guide)  
     显卡配置参考[Xorg/Guide](https://wiki.gentoo.org/wiki/Xorg/Guide)  
     无线网卡参考[Wifi](https://wiki.gentoo.org/wiki/Wifi)  
+    声卡配置参考[ALSA](https://wiki.gentoo.org/wiki/ALSA)
+    蓝牙配置参考[Bluetooth](https://wiki.gentoo.org/wiki/Bluetooth)
+    电源管理配置参考[Power management/Guide](https://wiki.gentoo.org/wiki/Power_management/Guide)
+    USB管理配置参考[USB/Guide](https://wiki.gentoo.org/wiki/USB/Guide)
     ipv6配置参考[IPv6_router_guide](https://wiki.gentoo.org/wiki/IPv6_router_guide)  
     systemd配置参考[systemd](https://wiki.gentoo.org/wiki/Systemd)和[systemd/Installing Gnome3 from scratch](https://wiki.gentoo.org/wiki/Systemd/Installing_Gnome3_from_scratch)
     照参考进行配置，CPU类型需要按照实际选择  
