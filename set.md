@@ -49,6 +49,7 @@
 * 安装第三方源
 
         emerge -av app-portage/layman #安装仓库管理工具,类似管理archlinux的core、extra、aur等
+        #早期版本需要这个
 	    echo "source /var/lib/layman/make.conf" >> /etc/portage/make.conf
     	layman -L     #列出所有第三方源
     	layman -a gentoo-zh #增加源，如果前面是红色星星，表示没有装git，其他也类似，可以为layman添加use
@@ -81,7 +82,7 @@
         emerge -av terminator       #分屏式终端
         emerge -av arandr 	//分辨率和屏幕设置，xrandr在安装X的时候一般已经自动装上
         emerge -av dmenu    #快速启动器，支持模糊搜索
-        emerge -av gnome-icon-theme xcursor-themes     #系统图标和鼠标主题
+        emerge -av gnome-icon-theme-extras xcursor-themes     #系统图标和鼠标主题
         emerge -av slock xautolock scrot aria2 numlockx      #分别是锁屏、截图(linux自带的import命令也可以截图)、下载、小键盘
         emerge -av adobe-flash gpicview nautilus  #分别是falsh、图片、文件浏览
         emerge -av fcitx fcitx-configtool fcitx-sunpinyin   #输入法，USE需要加上gtk2 gtk3，带剪切板管理
@@ -105,7 +106,6 @@
         emerge -av xchm   #chm文件阅读
         emerge -av apache-tools   #如果不想用apache，但想用ab的话，安装这个，也可以使用wrk来压测，wrk -d 10s url
         emerge -av veracrypt    #truecrypt新版
-        emerge -av aliedit      #支付宝控件，需要安装gentoo-zh的layman
         emerge -av privoxy      #ssh隧道是socket5，可以通过这个工具转成http和https
         emerge -av proxychains  #在终端下使用socket5代理
         emerge -av phddns       #花生壳，内网机器需要做端口映射

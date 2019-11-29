@@ -172,6 +172,9 @@
 * 更新@world
 
         emerge -av -uDN @world
+* 根据提示
+
+        eselect pinentry set pinentry-gnome3
 * 我习惯用vim
 
         emerge -av vim
@@ -239,7 +242,7 @@
         #如果使用systemd
         ln -sf /proc/self/mounts /etc/mtab
     配置参考[Configuring the Linux kernel](https://wiki.gentoo.org/wiki/Handbook:AMD64/Installation/Kernel)  
-    配置参考[Gentoo_Kernel_Configuration_Guide](https://wiki.gentoo.org/wiki/Kernel/Gentoo_Kernel_Configuration_Guide)  
+    蓝牙、打印机等配置参考[Gentoo_Kernel_Configuration_Guide](https://wiki.gentoo.org/wiki/Kernel/Gentoo_Kernel_Configuration_Guide)  
     显卡配置参考[Xorg/Guide](https://wiki.gentoo.org/wiki/Xorg/Guide)  
     无线网卡参考[Wifi](https://wiki.gentoo.org/wiki/Wifi)  
     声卡配置参考[ALSA](https://wiki.gentoo.org/wiki/ALSA)
