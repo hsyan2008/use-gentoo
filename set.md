@@ -169,7 +169,7 @@
             cd /usr/local/bin
             cd /var/log
             j bin   #就可以到之前cd过的/usr/local/bin
-    * 设置~/.xintrc,参考[Display Power Management Signaling](https://wiki.archlinux.org/index.php/Display_Power_Management_Signaling_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87))
+    * 设置~/.xinitrc,参考[Display Power Management Signaling](https://wiki.archlinux.org/index.php/Display_Power_Management_Signaling_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87))
 
             #xset是图形下的设置，setterm是字符界面下的设置
             xset -dpms  #禁止自动关闭显示器，比如休眠

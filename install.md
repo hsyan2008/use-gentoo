@@ -115,7 +115,7 @@
 * 配置源
 
         #按空格选择
-        mirrorselect -i -o >> /mnt/gentoo/etc/portage/make.conf  #相当于再make.conf里增加GENTOO_MIRRORS="http://mirrors.163.com/gentoo/ http://gentoo.aditsu.net:8000/ rsync://ftp.iij.ad.jp/pub/linux/gentoo/ http://ftp.iij.ad.jp/pub/linux/gentoo/ http://ftp.jaist.ac.jp/pub/Linux/Gentoo/ rsync://ftp.jaist.ac.jp/pub/Linux/Gentoo/"
+        mirrorselect -i -o >> /mnt/gentoo/etc/portage/make.conf  #相当于再make.conf里增加GENTOO_MIRRORS="https://mirror.bjtu.edu.cn/gentoo/ http://mirrors.163.com/gentoo/ http://gentoo.aditsu.net:8000/ rsync://ftp.iij.ad.jp/pub/linux/gentoo/ http://ftp.iij.ad.jp/pub/linux/gentoo/ http://ftp.jaist.ac.jp/pub/Linux/Gentoo/ rsync://ftp.jaist.ac.jp/pub/Linux/Gentoo/"
         mkdir -p /mnt/gentoo/etc/portage/repos.conf  
 	    cp /mnt/gentoo/usr/share/portage/config/repos.conf /mnt/gentoo/etc/portage/repos.conf/gentoo.conf  
 * 拷贝DNS信息
@@ -288,7 +288,7 @@
         passwd
 * 安装一些必要的系统工具
 
-        emerge -av syslog-ng cronie mlocate dhcpcd logrotate sudo
+        emerge -av syslog-ng cronie mlocate net-misc/dhcpcd logrotate sudo
         #如果是pppoe
         emerge -av ppp
         #如果是无线网络
